@@ -11,8 +11,10 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
     }
 
     @Override
-    public void generate() 
+    public void generate()
     {
-        addDrop(ModBlocks.MECHANIC_TABLE);
+		addDrop(ModBlocks.MECHANIC_TABLE);
+		addDrop(ModBlocks.PLUMBER_TABLE);
+        addDrop(ModBlocks.LOCOMOTIVE_TABLE);
     }
 }

@@ -14,7 +14,7 @@ public class LocomotiveWorkerTrades
 {
     public static void registerCustomTrades()
     {
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.MECHANIC, 1,
+        TradeOfferHelper.registerVillagerOffers(ModVillagers.LOCOMOTIVEWORKER, 1,
                 factories -> {
                         factories.add((entity, random) -> new TradeOffer(
 							new ItemStack(Items.EMERALD, 3),
@@ -37,7 +37,7 @@ public class LocomotiveWorkerTrades
 							8,8,0.02F));
 
                 });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.MECHANIC, 2,
+        TradeOfferHelper.registerVillagerOffers(ModVillagers.LOCOMOTIVEWORKER, 2,
                 factories -> {
                         factories.add((entity, random) -> new TradeOffer(
 							new ItemStack(Items.EMERALD, 3),
@@ -55,7 +55,7 @@ public class LocomotiveWorkerTrades
 							10,12,0.1F));
 
         });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.MECHANIC, 3,
+        TradeOfferHelper.registerVillagerOffers(ModVillagers.LOCOMOTIVEWORKER, 3,
                 factories -> {
                         factories.add((entity, random) -> new TradeOffer(
 							new ItemStack(AllBlocks.TRACK.get(), 6),
@@ -79,7 +79,7 @@ public class LocomotiveWorkerTrades
 							3,16,0.01F));
 
         });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.MECHANIC, 4,
+        TradeOfferHelper.registerVillagerOffers(ModVillagers.LOCOMOTIVEWORKER, 4,
         factories -> {
                         factories.add((entity, random) -> new TradeOffer(
 							new ItemStack(Items.EMERALD, 7),
@@ -92,7 +92,7 @@ public class LocomotiveWorkerTrades
 							8,10,0.01F));
 
         });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.MECHANIC, 5,
+        TradeOfferHelper.registerVillagerOffers(ModVillagers.LOCOMOTIVEWORKER, 5,
         factories -> {
                         factories.add((entity, random) -> new TradeOffer(
 							new ItemStack(Items.EMERALD, 6),

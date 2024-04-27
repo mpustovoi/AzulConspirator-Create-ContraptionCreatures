@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "createcontraptioncreatures:ccc_mechanicpoi",
+      "required": false
+    },
+    {
+      "id": "createcontraptioncreatures:ccc_plumberpoi",
+      "required": false
+    },
+    {
+      "id": "createcontraptioncreatures:ccc_locomotiveworkerpoi",
+      "required": false
+    }
+  ]
+}

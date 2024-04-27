@@ -1,4 +1,10 @@
-// 1.20.1	2024-04-27T17:13:05.1410189	Create : Contraption Creatures/Model Definitions
+// 1.20.1	2024-04-27T21:50:53.2822883	Create : Contraption Creatures/Model Definitions
+ba285d59dff6839b3da23075954ab2426dcf8ee6 assets\createcontraptioncreatures\blockstates\locomotive_table.json
 eb3ea8c800c58a147262b00401a41a118afec876 assets\createcontraptioncreatures\models\item\mechanic_table.json
+f8eebb2557c9aa1ae3c8b44c49b6e575308c8eff assets\createcontraptioncreatures\models\item\plumber_table.json
 060e0f1c2ae4f118af8c9abd0dd5ae3e68eb2f72 assets\createcontraptioncreatures\blockstates\mechanic_table.json
+7fd9efd9cefb7c222aafda7521adaed270cdad30 assets\createcontraptioncreatures\blockstates\plumber_table.json
 fe408feabcaba1a5b92659c3a61a0eb7f32fb8f3 assets\createcontraptioncreatures\models\block\mechanic_table.json
+55a50681d4cabb93a84ba0a898eb5d094eeb313e assets\createcontraptioncreatures\models\block\plumber_table.json
+1d0e76ccc7aa78dd295c58de22a5507e932c932d assets\createcontraptioncreatures\models\block\locomotive_table.json
+6464fd5641a09eb1428ad6fd0d88060badd79bfd assets\createcontraptioncreatures\models\item\locomotive_table.json

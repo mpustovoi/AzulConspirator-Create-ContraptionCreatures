@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import com.azul.CreateContraptionCreatures.CreateContraptionCreatures;
+import com.simibubi.create.AllBlocks;
 
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
@@ -16,9 +17,9 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
-    public static final Block MECHANIC_TABLE = registerBlock("mechanic_table", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).sounds(BlockSoundGroup.ANVIL)));
-	public static final Block PLUMBER_TABLE = registerBlock("plumber_table", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).sounds(BlockSoundGroup.ANVIL)));
-	public static final Block LOCOMOTIVE_TABLE = registerBlock("locomotive_table", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).sounds(BlockSoundGroup.ANVIL)));
+    public static final Block MECHANIC_TABLE = registerBlock("mechanic_table", new Block(FabricBlockSettings.copyOf(AllBlocks.SCHEMATIC_TABLE.get()).sounds(BlockSoundGroup.ANVIL)));
+	public static final Block PLUMBER_TABLE = registerBlock("plumber_table", new Block(FabricBlockSettings.copyOf(AllBlocks.SCHEMATIC_TABLE.get()).sounds(BlockSoundGroup.ANVIL)));
+	public static final Block LOCOMOTIVE_TABLE = registerBlock("locomotive_table", new Block(FabricBlockSettings.copyOf(AllBlocks.SCHEMATIC_TABLE.get()).sounds(BlockSoundGroup.ANVIL)));
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
@@ -34,6 +35,8 @@ public class ModBlocks {
     private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries)
     {
         entries.add(MECHANIC_TABLE);
+		entries.add(PLUMBER_TABLE);
+		entries.add(LOCOMOTIVE_TABLE);
     }
 
     public static void registerModBlocks()

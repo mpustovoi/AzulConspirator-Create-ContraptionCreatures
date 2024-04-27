@@ -11,7 +11,8 @@ public class CreateContraptionCreaturesDataGenerator implements DataGeneratorEnt
 	{
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		pack.addProvider(ModLootTableProvider::new);
-		pack.addProvider(ModPoiTagProvider::new);
 		pack.addProvider(ModModelProvider::new);
+		pack.addProvider(ModPoiTagProvider::new);
+
 	}
 }

@@ -25,9 +25,9 @@ public class ModVillagers
 	public static final RegistryKey<PointOfInterestType> PLUMBER_POI_KEY = poiKey("ccc_plumberpoi");
 	public static final RegistryKey<PointOfInterestType> LOCOMOTIVEWORKER_POI_KEY = poiKey("ccc_locomotiveworkerpoi");
 
-    public static final PointOfInterestType MECHANIC_POI = registerPoi("ccc_mechanicpoi", ModBlocks.MECHANIC_TABLE);
-	public static final PointOfInterestType PLUMBER_POI = registerPoi("ccc_plumberpoi", ModBlocks.PLUMBER_TABLE);
-	public static final PointOfInterestType LOCOMOTIVEWORKER_POI = registerPoi("ccc_locomotiveworkerpoi", ModBlocks.LOCOMOTIVE_TABLE);
+    public static final PointOfInterestType MECHANIC_POI = registerPoi(MECHANIC_VIL, ModBlocks.MECHANIC_TABLE);
+	public static final PointOfInterestType PLUMBER_POI = registerPoi(PLUMBER_VIL, ModBlocks.PLUMBER_TABLE);
+	public static final PointOfInterestType LOCOMOTIVEWORKER_POI = registerPoi(LOCOMOTIVEWORKER_VIL, ModBlocks.LOCOMOTIVE_TABLE);
 
     public static final VillagerProfession MECHANIC = registerProfession("ccc_mechanic", MECHANIC_POI_KEY);
 	public static final VillagerProfession PLUMBER = registerProfession("ccc_plumber", PLUMBER_POI_KEY);

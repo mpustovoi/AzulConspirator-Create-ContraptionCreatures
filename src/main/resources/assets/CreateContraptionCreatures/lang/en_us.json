@@ -1,4 +1,10 @@
 {
     "block.createcontraptioncreatures.mechanic_table": "Mechanic Table",
-    "entity.minecraft.villager.ccc_mechanic": "Mechanic"
+    "entity.minecraft.villager.ccc_mechanic": "Mechanic",
+
+    "block.createcontraptioncreatures.plumber_table": "Plumber Table",
+    "entity.minecraft.villager.ccc_plumber": "Plumber",
+
+    "block.createcontraptioncreatures.locomotive_table": "Locomotive Table",
+    "entity.minecraft.villager.ccc_locomotiveworker": "Locomotive Worker"
 }
