@@ -16,8 +16,9 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
-    public static final Block MECHANIC_TABLE = registerBlock("mechanic_table",
-            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).sounds(BlockSoundGroup.ANVIL)));
+    public static final Block MECHANIC_TABLE = registerBlock("mechanic_table", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).sounds(BlockSoundGroup.ANVIL)));
+	public static final Block PLUMBER_TABLE = registerBlock("plumber_table", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).sounds(BlockSoundGroup.ANVIL)));
+	public static final Block LOCOMOTIVE_TABLE = registerBlock("locomotive_table", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).sounds(BlockSoundGroup.ANVIL)));
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
@@ -30,12 +31,12 @@ public class ModBlocks {
     }
 
 
-    private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries) 
+    private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries)
     {
-    entries.add(MECHANIC_TABLE);
+        entries.add(MECHANIC_TABLE);
     }
 
-    public static void registerModBlocks() 
+    public static void registerModBlocks()
     {
         CreateContraptionCreatures.LOGGER.info("Registering ModBlocks for " + CreateContraptionCreatures.MOD_ID);
 

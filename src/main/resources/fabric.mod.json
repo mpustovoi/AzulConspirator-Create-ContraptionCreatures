@@ -16,17 +16,16 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.azul.createcontraptioncreatures.Createcontraptioncreatures"
+			"com.azul.CreateContraptionCreatures.CreateContraptionCreatures"
 		],
 		"fabric-datagen": [
-			"com.azul.createcontraptioncreatures.CreatecontraptioncreaturesDataGenerator"
+			"com.azul.CreateContraptionCreatures.CreateContraptionCreaturesDataGenerator"
 		]
 	},
 	"mixins": [
-		"createcontraptioncreatures.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.15.10",
+		"fabricloader": ">=0.15.5",
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*"

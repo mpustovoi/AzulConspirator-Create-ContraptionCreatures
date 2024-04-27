@@ -15,14 +15,26 @@ import net.minecraft.util.Identifier;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 
-public class ModVillagers 
+public class ModVillagers
 {
+	public static String MECHANIC_VIL = "ccc_mechanicpoi";
+	public static String PLUMBER_VIL = "ccc_plumberpoi";
+	public static String LOCOMOTIVEWORKER_VIL = "ccc_locomotiveworkerpoi";
+
     public static final RegistryKey<PointOfInterestType> MECHANIC_POI_KEY = poiKey("ccc_mechanicpoi");
+	public static final RegistryKey<PointOfInterestType> PLUMBER_POI_KEY = poiKey("ccc_plumberpoi");
+	public static final RegistryKey<PointOfInterestType> LOCOMOTIVEWORKER_POI_KEY = poiKey("ccc_locomotiveworkerpoi");
+
     public static final PointOfInterestType MECHANIC_POI = registerPoi("ccc_mechanicpoi", ModBlocks.MECHANIC_TABLE);
+	public static final PointOfInterestType PLUMBER_POI = registerPoi("ccc_plumberpoi", ModBlocks.PLUMBER_TABLE);
+	public static final PointOfInterestType LOCOMOTIVEWORKER_POI = registerPoi("ccc_locomotiveworkerpoi", ModBlocks.LOCOMOTIVE_TABLE);
+
     public static final VillagerProfession MECHANIC = registerProfession("ccc_mechanic", MECHANIC_POI_KEY);
+	public static final VillagerProfession PLUMBER = registerProfession("ccc_plumber", PLUMBER_POI_KEY);
+	public static final VillagerProfession LOCOMOTIVEWORKER = registerProfession("ccc_locomotiveworker", LOCOMOTIVEWORKER_POI_KEY);
 
 
-    private static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> type) 
+    private static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> type)
     {
         return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(CreateContraptionCreatures.MOD_ID, name),
                 new VillagerProfession(name, entry -> entry.matchesKey(type), entry -> entry.matchesKey(type),

@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "createcontraptioncreatures:ccc_mechanic",
+      "required": false
+    },
+    {
+      "id": "createcontraptioncreatures:ccc_plumber",
+      "required": false
+    },
+    {
+      "id": "createcontraptioncreatures:ccc_locomotiveworker",
+      "required": false
+    }
+  ]
+}

@@ -3,7 +3,6 @@
 	"package": "com.azul.createcontraptioncreatures.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ContraptionCreaturesMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
