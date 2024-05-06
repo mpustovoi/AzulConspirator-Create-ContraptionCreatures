@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Y": {
+      "item": "minecraft:iron_block"
+    },
+    "#": {
+      "item": "minecraft:iron"
+    },
+    "X": {
+      "item": "minecraft:copper_block"
+    }
+  },
+  "pattern": [
+    "###",
+    " Y ",
+    "XXX"
+  ],
+  "result": {
+    "item": "createcontraptioncreatures:plumber_table"
+  }
+}

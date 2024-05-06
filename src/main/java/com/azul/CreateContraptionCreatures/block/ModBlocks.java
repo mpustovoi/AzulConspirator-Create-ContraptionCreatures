@@ -43,6 +43,6 @@ public class ModBlocks {
     {
         CreateContraptionCreatures.LOGGER.info("Registering ModBlocks for " + CreateContraptionCreatures.MOD_ID);
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModBlocks::addItemsToIngredientItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModBlocks::addItemsToIngredientItemGroup);
     }
 }
