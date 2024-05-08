@@ -14,7 +14,6 @@ import com.azul.CreateContraptionCreatures.entity.custom.Gatherers.*;
 
 public class ModEntity
 {
-
-	public static final EntityType<AutoDrillerEntity> AUTO_DRILLER = Registry.register(Registries.ENTITY_TYPE, new Identifier(CreateContraptionCreatures.MOD_ID, "auto_driller"), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AutoDrillerEntity::new).dimensions(EntityDimensions.fixed(1f, 1f)).build());
-
+	public static final EntityType<AutoDrillerEntity> AUTO_DRILLER = Registry.register(Registries.ENTITY_TYPE, new Identifier(CreateContraptionCreatures.MOD_ID, "auto_driller"), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AutoDrillerEntity::new).dimensions(EntityDimensions.fixed(1f, 1.3f)).build());
+	public static final EntityType<AutoLumbererEntity> AUTO_LUMBERER = Registry.register(Registries.ENTITY_TYPE, new Identifier(CreateContraptionCreatures.MOD_ID, "auto_lumberer"), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AutoLumbererEntity::new).dimensions(EntityDimensions.fixed(1f, 1.3f)).build());
 }

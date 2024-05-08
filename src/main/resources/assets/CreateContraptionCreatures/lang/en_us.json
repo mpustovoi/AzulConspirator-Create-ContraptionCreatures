@@ -6,5 +6,10 @@
     "entity.minecraft.villager.ccc_plumber": "Plumber",
 
     "block.createcontraptioncreatures.locomotive_table": "Locomotive Table",
-    "entity.minecraft.villager.ccc_locomotiveworker": "Locomotive Worker"
+    "entity.minecraft.villager.ccc_locomotiveworker": "Locomotive Worker",
+
+    "entity.createcontraptioncreatures.auto_driller": "Driller Automaton",
+    "item.createcontraptioncreatures.auto_driller_spawn_egg": "Driller Automaton Spawn Egg",
+    "entity.createcontraptioncreatures.auto_lumberer": "Cutter Automaton",
+    "item.createcontraptioncreatures.auto_lumberer_spawn_egg": "Cutter Automaton Spawn Egg"
 }

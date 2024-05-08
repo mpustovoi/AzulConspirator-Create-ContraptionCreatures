@@ -1,0 +1,134 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.auto_driller.idle": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"cog": {
+					"rotation": {
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 75]
+						},
+						"1.25": {
+							"vector": [0, 0, 75]
+						},
+						"1.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.auto_driller.attack": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"Saw": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, "180*4"]
+						}
+					}
+				},
+				"cog": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 180]
+						}
+					}
+				}
+			}
+		},
+		"animation.auto_driller.walk": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"cog": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 180]
+						}
+					}
+				}
+			}
+		},
+		"animation.auto_lumberer.idle": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"cog": {
+					"rotation": {
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 75]
+						},
+						"1.25": {
+							"vector": [0, 0, 75]
+						},
+						"1.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.auto_lumberer.attack": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"Saw": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, "180*3", 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"cog": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 180]
+						}
+					}
+				}
+			}
+		},
+		"animation.auto_lumberer.walk": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"cog": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 180]
+						}
+					}
+				}
+			}
+		}
+	},
+	"azurelib_format_version": 2
+}

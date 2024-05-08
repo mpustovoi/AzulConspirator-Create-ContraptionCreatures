@@ -2,6 +2,7 @@ package com.azul.CreateContraptionCreatures.entity.custom.Gatherers;
 
 import com.azul.CreateContraptionCreatures.entity.custom.AbstractCogBotEntity;
 
+import io.github.fabricators_of_create.porting_lib.entity.events.LivingAttackEvent;
 import mod.azure.azurelib.animatable.GeoEntity;
 import mod.azure.azurelib.animatable.SingletonGeoAnimatable;
 import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
@@ -22,18 +23,19 @@ import net.minecraft.util.TimeHelper;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.World;
 
-public class AutoDrillerEntity extends AbstractCogBotEntity implements GeoEntity
+public class AutoLumbererEntity extends AbstractCogBotEntity implements GeoEntity
 {
 	private static final UniformIntProvider ANGER_TIME_RANGE = TimeHelper.betweenSeconds(20, 39);
-	private static final TrackedData<Integer> ANGER_TIME = DataTracker.registerData(AutoDrillerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final TrackedData<Integer> ANGER_TIME = DataTracker.registerData(AutoLumbererEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
 
-	public AutoDrillerEntity(net.minecraft.entity.EntityType<? extends AbstractCogBotEntity> entityType, World world){
+
+	public AutoLumbererEntity(net.minecraft.entity.EntityType<? extends AbstractCogBotEntity> entityType, World world){
 		super(entityType, world);
 		SingletonGeoAnimatable.registerSyncedAnimatable(this);
 	}
 
-	public static DefaultAttributeContainer.Builder createGathererDrillerAttributes()
+	public static DefaultAttributeContainer.Builder createGathererLumbererAttributes()
 	{
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 15)
@@ -46,9 +48,9 @@ public class AutoDrillerEntity extends AbstractCogBotEntity implements GeoEntity
 	public void registerControllers(ControllerRegistrar controllers) {
 		controllers.add(new AnimationController<>(this, event -> {
 			if (event.isMoving())
-				return event.setAndContinue(RawAnimation.begin().then("animation.auto_driller.walk", Animation.LoopType.LOOP));
-			return event.setAndContinue(RawAnimation.begin().then("animation.auto_driller.idle", Animation.LoopType.LOOP));
-		}).triggerableAnim("attack", RawAnimation.begin().then("animation.auto_driller.attack", LoopType.PLAY_ONCE)));
+				return event.setAndContinue(RawAnimation.begin().then("animation.auto_lumberer.walk", Animation.LoopType.LOOP));
+			return event.setAndContinue(RawAnimation.begin().then("animation.auto_lumberer.idle", Animation.LoopType.LOOP));
+		}).triggerableAnim("attack", RawAnimation.begin().then("animation.auto_lumberer.attack", LoopType.PLAY_ONCE)));
 	}
 
 	@Override
