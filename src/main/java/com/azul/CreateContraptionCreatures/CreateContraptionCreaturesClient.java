@@ -2,8 +2,7 @@ package com.azul.CreateContraptionCreatures;
 
 import com.azul.CreateContraptionCreatures.block.ModBlocks;
 import com.azul.CreateContraptionCreatures.entity.ModEntity;
-import com.azul.CreateContraptionCreatures.entity.client.renders.AutoDrillerRenderer;
-import com.azul.CreateContraptionCreatures.entity.client.renders.AutoLumbererRenderer;
+import com.azul.CreateContraptionCreatures.entity.client.renders.*;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.Environment;
@@ -23,7 +22,14 @@ public class CreateContraptionCreaturesClient implements ClientModInitializer
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PLUMBER_TABLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.LOCOMOTIVE_TABLE, RenderLayer.getCutout());
 
+		EntityRendererRegistry.register(ModEntity.GEAR_BUG, GearBugRenderer::new);
+		EntityRendererRegistry.register(ModEntity.GEAR_DUMMY, GearDummyRenderer::new);
+		EntityRendererRegistry.register(ModEntity.GEAR_DIVER, GearDiverRenderer::new);
+		EntityRendererRegistry.register(ModEntity.GEAR_KNIGHT, GearKnightRenderer::new);
+
 		EntityRendererRegistry.register(ModEntity.AUTO_DRILLER, AutoDrillerRenderer::new);
 		EntityRendererRegistry.register(ModEntity.AUTO_LUMBERER, AutoLumbererRenderer::new);
+
+
     }
 }

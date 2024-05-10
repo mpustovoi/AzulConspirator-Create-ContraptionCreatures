@@ -16,7 +16,6 @@ import net.fabricmc.api.Environment;
 public class AutoDrillerRenderer extends GeoEntityRenderer<AutoDrillerEntity>
 {
 		private static final Identifier BASE_TEX = new Identifier(CreateContraptionCreatures.MOD_ID, "textures/entity/auto_driller.png");
-		private static final Identifier ANGRY_TEX = new Identifier(CreateContraptionCreatures.MOD_ID, "textures/entity/auto_driller_anger.png");
 
 		public AutoDrillerRenderer(EntityRendererFactory.Context renderManagerIn) {
 			super(renderManagerIn, new AutoDrillerModel());
@@ -38,8 +37,7 @@ public class AutoDrillerRenderer extends GeoEntityRenderer<AutoDrillerEntity>
 		}
 
 		@Override
-		public void render(AutoDrillerEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
-						   VertexConsumerProvider bufferSource, int packedLight) {
+		public void render(AutoDrillerEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,VertexConsumerProvider bufferSource, int packedLight) {
 			super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
 		}
 

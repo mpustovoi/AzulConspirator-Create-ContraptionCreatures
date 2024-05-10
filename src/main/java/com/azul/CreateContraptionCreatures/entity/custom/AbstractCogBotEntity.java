@@ -32,9 +32,11 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LightType;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.dimension.DimensionType;
 
 public abstract class AbstractCogBotEntity extends PathAwareEntity
 implements net.minecraft.entity.mob.Monster,Angerable
@@ -48,20 +50,20 @@ implements net.minecraft.entity.mob.Monster,Angerable
 		this.experiencePoints = 5;
 		this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, -1.0f);
         this.setPathfindingPenalty(PathNodeType.DANGER_POWDER_SNOW, -1.0f);
-		this.setPathfindingPenalty(PathNodeType.WATER, -1.0f);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, -1.0f);
 	}
 
 	@Override
     protected void initGoals()
 	{
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new WanderAroundFarGoal(this, 0.75f, 1));
-        this.goalSelector.add(4, new LookAroundGoal(this));
-		this.goalSelector.add(2, new MeleeAttackGoal(this, 1.2D, false));
+        this.goalSelector.add(1, new SwimGoal(this));;
+        this.goalSelector.add(5, new MeleeAttackGoal(this, 1.0, true));
+        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(10, new LookAroundGoal(this));
 
-		this.targetSelector.add(3, new RevengeGoal(this, new Class[0]).setGroupRevenge(new Class[0]));
+        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]).setGroupRevenge(new Class[0]));
         this.targetSelector.add(4, new ActiveTargetGoal<PlayerEntity>(this, PlayerEntity.class, 10, true, false, this::shouldAngerAt));
-    }
+	}
 
     @Override
     public SoundCategory getSoundCategory() {
@@ -114,26 +116,33 @@ implements net.minecraft.entity.mob.Monster,Angerable
         return new LivingEntity.FallSounds(SoundEvents.ENTITY_HOSTILE_SMALL_FALL, SoundEvents.ENTITY_HOSTILE_BIG_FALL);
     }
 
-    public static boolean isSpawnDark(ServerWorldAccess world, BlockPos pos, Random random)
-	{
-		// Check light level (spawn only in low light conditions)
-		if (world.getLightLevel(pos, 0) <= 7) {
-			// Check Y-level (spawn below ground)
-			if (pos.getY() < 30) {
-				return true;
-			}
-		}
-		return false;
+    public static boolean isSpawnCorrect(ServerWorldAccess world, BlockPos pos, Random random) {
+        if (world.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
+            return false;
+        }
+        DimensionType dimensionType = world.getDimension();
+        int i = dimensionType.monsterSpawnBlockLightLimit();
+        if (i < 15 && world.getLightLevel(LightType.BLOCK, pos) > i) {
+            return false;
+        }
+        int j = world.toServerWorld().isThundering() ? world.getLightLevel(pos, 10) : world.getLightLevel(pos);
+        return j <= dimensionType.monsterSpawnLightTest().get(random);
     }
 
-    public static boolean canSpawnCog(EntityType<? extends PathAwareEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getDifficulty() != Difficulty.PEACEFUL && AbstractCogBotEntity.isSpawnDark(world, pos, random) && AbstractCogBotEntity.canMobSpawn(type, world, spawnReason, pos, random);
+    public static boolean canSpawnCog(EntityType<? extends AbstractCogBotEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getDifficulty() != Difficulty.PEACEFUL && AbstractCogBotEntity.isSpawnCorrect(world, pos, random) && AbstractCogBotEntity.canMobSpawn(type, world, spawnReason, pos, random);
     }
 
     @Override
     public boolean shouldDropXp()
 	{
         return true;
+    }
+
+    @Override
+    public boolean canPickupItem(ItemStack stack)
+	{
+		return false;
     }
 
     @Override
@@ -151,6 +160,16 @@ implements net.minecraft.entity.mob.Monster,Angerable
         this.angryAt = angryAt;
     }
 
+	@Override
+    public int getAngerTime() {
+        return 0;
+    }
+
+    @Override
+    public void setAngerTime(int angerTime) {}
+
+    @Override
+    public void chooseRandomAngerTime() {}
 
     @Override
     public ItemStack getProjectileType(ItemStack stack) {

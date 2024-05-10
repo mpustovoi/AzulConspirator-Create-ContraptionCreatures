@@ -9,7 +9,9 @@
     "entity.minecraft.villager.ccc_locomotiveworker": "Locomotive Worker",
 
     "entity.createcontraptioncreatures.auto_driller": "Driller Automaton",
-    "item.createcontraptioncreatures.auto_driller_spawn_egg": "Driller Automaton Spawn Egg",
+    "item.createcontraptioncreatures.auto_driller": "Driller Automaton Spawn Egg",
     "entity.createcontraptioncreatures.auto_lumberer": "Cutter Automaton",
-    "item.createcontraptioncreatures.auto_lumberer_spawn_egg": "Cutter Automaton Spawn Egg"
+    "item.createcontraptioncreatures.auto_lumberer": "Cutter Automaton Spawn Egg",
+    "entity.createcontraptioncreatures.gear_bug": "Gear Bug",
+    "item.createcontraptioncreatures.gear_bug": "Gear Bug Spawn Egg"
 }
