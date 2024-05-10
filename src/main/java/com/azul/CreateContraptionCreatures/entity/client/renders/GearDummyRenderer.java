@@ -15,7 +15,7 @@ import net.fabricmc.api.Environment;
 @Environment(value=EnvType.CLIENT)
 public class GearDummyRenderer extends GeoEntityRenderer<GearDummyEntity>
 {
-		private static final Identifier BASE_TEX = new Identifier(CreateContraptionCreatures.MOD_ID, "textures/entity/gear_bug.png");
+		private static final Identifier BASE_TEX = new Identifier(CreateContraptionCreatures.MOD_ID, "textures/entity/gear_dummy.png");
 
 		public GearDummyRenderer(EntityRendererFactory.Context renderManagerIn) {
 			super(renderManagerIn, new GearDummyModel());

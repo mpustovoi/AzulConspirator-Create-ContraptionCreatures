@@ -6,7 +6,7 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "create:copper_casing",
+					"name": "create:andesite_casing",
 					"functions": [
 						{
 							"function": "minecraft:set_count",
@@ -32,13 +32,13 @@
 				},
         {
 					"type": "minecraft:item",
-					"name": "minecraft:oak_log",
+					"name": "minecraft:raw_iron",
 					"functions": [
 						{
 							"function": "minecraft:set_count",
 							"count": {
-								"min": 10,
-								"max": 16
+								"min": 3,
+								"max": 6
 							}
 						}
 					]

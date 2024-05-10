@@ -1,7 +1,23 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.auto_driller.idle": {
+		"animation.auto_driller.walk": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"cog": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 180]
+						}
+					}
+				}
+			}
+		},
+		"animation.auto_porter.idle": {
 			"loop": true,
 			"animation_length": 2,
 			"bones": {
@@ -20,10 +36,26 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 0, 4]
+						},
+						"1.25": {
+							"vector": [0, 0, -2.5]
+						},
+						"1.75": {
+							"vector": [0, 0, 0]
+						}
+					}
 				}
 			}
 		},
-		"animation.auto_driller.walk": {
+		"animation.auto_porter.walk": {
 			"loop": true,
 			"animation_length": 1,
 			"bones": {
@@ -36,20 +68,17 @@
 							"vector": [0, 0, 180]
 						}
 					}
-				}
-			}
-		},
-		"animation.auto_driller.attack": {
-			"loop": true,
-			"animation_length": 1,
-			"bones": {
-				"cog": {
+				},
+				"head": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"1.0": {
-							"vector": [0, 0, 180]
+						"0.6": {
+							"vector": [-2.5, 0, 0]
+						},
+						"0.9": {
+							"vector": [0, 0, 0]
 						}
 					}
 				}

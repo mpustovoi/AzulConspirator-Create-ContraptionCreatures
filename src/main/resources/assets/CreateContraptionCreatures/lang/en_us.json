@@ -1,4 +1,5 @@
 {
+    "_A": "//Mechanical Villagers",
     "block.createcontraptioncreatures.mechanic_table": "Mechanic Table",
     "entity.minecraft.villager.ccc_mechanic": "Mechanic",
 
@@ -8,10 +9,27 @@
     "block.createcontraptioncreatures.locomotive_table": "Locomotive Table",
     "entity.minecraft.villager.ccc_locomotiveworker": "Locomotive Worker",
 
+    "_B": "//Neutral Automatons",
     "entity.createcontraptioncreatures.auto_driller": "Driller Automaton",
     "item.createcontraptioncreatures.auto_driller": "Driller Automaton Spawn Egg",
+
     "entity.createcontraptioncreatures.auto_lumberer": "Cutter Automaton",
     "item.createcontraptioncreatures.auto_lumberer": "Cutter Automaton Spawn Egg",
+
+    "entity.createcontraptioncreatures.auto_porter": "Porter Automaton",
+    "item.createcontraptioncreatures.auto_porter": "Porter Automaton Spawn Egg",
+
+    "_C": "//Gear Bug Variants",
     "entity.createcontraptioncreatures.gear_bug": "Gear Bug",
-    "item.createcontraptioncreatures.gear_bug": "Gear Bug Spawn Egg"
+    "item.createcontraptioncreatures.gear_bug": "Gear Bug Spawn Egg",
+
+    "entity.createcontraptioncreatures.gear_dummy": "Gear Puppet",
+    "item.createcontraptioncreatures.gear_dummy": "Gear Puppet Spawn Egg",
+
+    "entity.createcontraptioncreatures.gear_diver": "Gear Diver",
+    "item.createcontraptioncreatures.gear_diver": "Gear Diver Spawn Egg",
+
+    "entity.createcontraptioncreatures.gear_knight": "Gear Diver",
+    "item.createcontraptioncreatures.gear_knight": "Gear Diver Spawn Egg"
+
 }

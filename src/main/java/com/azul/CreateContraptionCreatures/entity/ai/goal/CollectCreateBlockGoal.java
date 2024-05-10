@@ -1,22 +1,9 @@
 package com.azul.CreateContraptionCreatures.entity.ai.goal;
 
-import java.util.Set;
-
-import org.spongepowered.include.com.google.common.collect.ImmutableSet;
-
 import com.azul.CreateContraptionCreatures.entity.custom.Combatants.GearBugEntity;
-import com.simibubi.create.AllBlocks;
-import com.tterrag.registrate.util.entry.BlockEntry;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.TargetBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.MathHelper;
@@ -37,7 +24,8 @@ public class CollectCreateBlockGoal extends MoveToTargetPosGoal
 	private float ratio;
 
 
-    public CollectCreateBlockGoal(Block targetBlocks, GearBugEntity mob, double speed, int maxYDifference) {
+    public CollectCreateBlockGoal(Block targetBlocks, GearBugEntity mob, double speed, int maxYDifference)
+	{
         super(mob, speed, 24);
         this.targetBlock = targetBlocks;
         this.EaterMob = mob;
@@ -47,12 +35,7 @@ public class CollectCreateBlockGoal extends MoveToTargetPosGoal
     public boolean canStart()
 	{
 		final World world = this.EaterMob.getWorld();
-		SimpleInventory SimInventory = EaterMob.getInventory();
 
-		if (SimInventory.containsAny(stack -> stack.isOf(this.targetBlock.asItem())))
-		{
-			return false;
-		}
         if (!world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING))
 		{
             return false;
@@ -75,6 +58,7 @@ public class CollectCreateBlockGoal extends MoveToTargetPosGoal
     public void stop() {
         super.stop();
         this.EaterMob.fallDistance = 1.0f;
+		this.EaterMob.updateGoal();
     }
 
     @Override
@@ -100,10 +84,26 @@ public class CollectCreateBlockGoal extends MoveToTargetPosGoal
 		{
 			if (progress >= targetHardness)
 			{
-				EaterMob.getWorld().breakBlock(blockPosDestination, false);
-				return;
+				if(this.EaterMob.getSlot1() == "nil" && this.EaterMob.getSlot1() != this.targetBlock.asItem().toString())
+				{
+					this.EaterMob.setSlot1(this.targetBlock.asItem().toString());
+					this.EaterMob.getWorld().breakBlock(blockPosDestination, false);
+					return;
+				}
+				else if(this.EaterMob.getSlot2() == "nil" && this.EaterMob.getSlot1() != this.targetBlock.asItem().toString())
+				{
+					this.EaterMob.setSlot2(this.targetBlock.asItem().toString());
+					this.EaterMob.getWorld().breakBlock(blockPosDestination, false);
+					return;
+				}
+				else
+				{
+					this.EaterMob.getWorld().breakBlock(blockPosDestination, true);
+					return;
+				}
+
 			}
-			mob.getWorld().setBlockBreakingInfo(mob.getId(), blockPosDestination, (int) (progress * ratio));
+			this.EaterMob.getWorld().setBlockBreakingInfo(this.EaterMob.getId(), blockPosDestination, (int) (progress * ratio));
         }
     }
 
@@ -127,7 +127,8 @@ public class CollectCreateBlockGoal extends MoveToTargetPosGoal
 
     private BlockPos tweakToProperPos(BlockPos pos, BlockView world)
 	{
-        BlockPos[] blockPoss;
+        @SuppressWarnings("unused")
+		BlockPos[] blockPoss;
         if (world.getBlockState(pos).isOf(this.targetBlock)) {
             return pos;
         }

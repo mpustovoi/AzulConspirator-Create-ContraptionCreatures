@@ -24,6 +24,8 @@ public class ModEntity
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, AutoDrillerEntity::new).dimensions(EntityDimensions.fixed(1f, 1.3f)).build());
 	public static final EntityType<AutoLumbererEntity> AUTO_LUMBERER = register("auto_lumberer", 1250067, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, AutoLumbererEntity::new).dimensions(EntityDimensions.fixed(1f, 1.3f)).build());
+	public static final EntityType<AutoPorterEntity> AUTO_PORTER = register("auto_porter", 1250067, 3092271,
+	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, AutoPorterEntity::new).dimensions(EntityDimensions.fixed(1f, 1.3f)).build());
 	//
 	public static final EntityType<GearBugEntity> GEAR_BUG = register("gear_bug", 1250067, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearBugEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.5f)).build());
@@ -53,7 +55,10 @@ public class ModEntity
 	{
 		FabricDefaultAttributeRegistry.register(ModEntity.AUTO_DRILLER, AutoDrillerEntity.createGathererDrillerAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntity.AUTO_LUMBERER, AutoLumbererEntity.createGathererLumbererAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntity.AUTO_PORTER, AutoPorterEntity.createGathererPorterAttributes());
+
 		FabricDefaultAttributeRegistry.register(ModEntity.GEAR_BUG, GearBugEntity.createCombatantGearBugAttributes());
+
 		FabricDefaultAttributeRegistry.register(ModEntity.GEAR_DUMMY, GearDummyEntity.createCombatantGearDummyAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntity.GEAR_KNIGHT, GearKnightEntity.createCombatantGearKnightAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntity.GEAR_DIVER, GearDiverEntity.createCombatantGearDiverAttributes());
