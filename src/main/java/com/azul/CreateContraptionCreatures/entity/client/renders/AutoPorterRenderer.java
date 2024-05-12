@@ -15,7 +15,7 @@ import net.fabricmc.api.Environment;
 @Environment(value=EnvType.CLIENT)
 public class AutoPorterRenderer extends GeoEntityRenderer<AutoPorterEntity>
 {
-		private static final Identifier BASE_TEX = new Identifier(CreateContraptionCreatures.MOD_ID, "textures/entity/gear_bug.png");
+		private static final Identifier BASE_TEX = new Identifier(CreateContraptionCreatures.MOD_ID, "textures/entity/auto_porter.png");
 
 		public AutoPorterRenderer(EntityRendererFactory.Context renderManagerIn) {
 			super(renderManagerIn, new AutoPorterModel());

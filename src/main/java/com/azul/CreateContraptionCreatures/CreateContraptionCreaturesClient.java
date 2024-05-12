@@ -18,14 +18,15 @@ public class CreateContraptionCreaturesClient implements ClientModInitializer
 	@Override
     public void onInitializeClient()
 	{
+		//Villager Table
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MECHANIC_TABLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PLUMBER_TABLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.LOCOMOTIVE_TABLE, RenderLayer.getCutout());
-
+		//Gatherers
 		EntityRendererRegistry.register(ModEntity.AUTO_DRILLER, AutoDrillerRenderer::new);
 		EntityRendererRegistry.register(ModEntity.AUTO_LUMBERER, AutoLumbererRenderer::new);
 		EntityRendererRegistry.register(ModEntity.AUTO_PORTER, AutoPorterRenderer::new);
-
+		//Combatants
 		EntityRendererRegistry.register(ModEntity.GEAR_BUG, GearBugRenderer::new);
 		EntityRendererRegistry.register(ModEntity.GEAR_DUMMY, GearDummyRenderer::new);
 		EntityRendererRegistry.register(ModEntity.GEAR_DIVER, GearDiverRenderer::new);

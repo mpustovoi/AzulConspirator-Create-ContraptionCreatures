@@ -2,7 +2,6 @@ package com.azul.CreateContraptionCreatures.entity.custom.Gatherers;
 
 import com.azul.CreateContraptionCreatures.entity.custom.AbstractCogBotEntity;
 
-import mod.azure.azurelib.animatable.GeoEntity;
 import mod.azure.azurelib.animatable.SingletonGeoAnimatable;
 import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
 import mod.azure.azurelib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -12,6 +11,8 @@ import mod.azure.azurelib.core.animation.AnimationController;
 import mod.azure.azurelib.core.animation.RawAnimation;
 import mod.azure.azurelib.util.AzureLibUtil;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
@@ -19,10 +20,14 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.TimeHelper;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
-public class AutoLumbererEntity extends AbstractCogBotEntity implements GeoEntity
+public class AutoLumbererEntity extends AbstractCogBotEntity
 {
 	private static final UniformIntProvider ANGER_TIME_RANGE = TimeHelper.betweenSeconds(20, 39);
 
@@ -81,5 +86,17 @@ public class AutoLumbererEntity extends AbstractCogBotEntity implements GeoEntit
     @Override
     public void chooseRandomAngerTime() {
         this.setAngerTime(ANGER_TIME_RANGE.get(this.random));
+    }
+
+	public static boolean isSpawnCorrect(ServerWorldAccess world, BlockPos pos, Random random)
+	{
+		if (pos.getY() <= 20) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean canSpawnCog(EntityType<? extends AutoLumbererEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getDifficulty() != Difficulty.PEACEFUL && AutoLumbererEntity.isSpawnCorrect(world, pos, random) && AutoLumbererEntity.canMobSpawn(type, world, spawnReason, pos, random);
     }
 }

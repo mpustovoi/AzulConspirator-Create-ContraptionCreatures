@@ -11,6 +11,7 @@ import com.azul.CreateContraptionCreatures.util.LocomotiveWorkerTrades;
 import com.azul.CreateContraptionCreatures.util.MechanicTrades;
 import com.azul.CreateContraptionCreatures.util.PlumberTrades;
 import com.azul.CreateContraptionCreatures.villager.ModVillagers;
+import com.azul.CreateContraptionCreatures.world.gen.ModEntityGeneration;
 
 import mod.azure.azurelib.AzureLib;
 
@@ -33,6 +34,7 @@ public class CreateContraptionCreatures implements ModInitializer
 		MechanicTrades.registerCustomTrades();
 		PlumberTrades.registerCustomTrades();
 		LocomotiveWorkerTrades.registerCustomTrades();
+		ModEntityGeneration.addSpawns();
 
 	}
 }

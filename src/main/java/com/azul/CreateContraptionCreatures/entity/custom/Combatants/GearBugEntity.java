@@ -1,17 +1,16 @@
 package com.azul.CreateContraptionCreatures.entity.custom.Combatants;
 
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
 import com.azul.CreateContraptionCreatures.entity.ModEntity;
 import com.azul.CreateContraptionCreatures.entity.ai.goal.CollectCreateBlockGoal;
 import com.azul.CreateContraptionCreatures.entity.custom.AbstractCogBotEntity;
+import com.google.common.collect.ImmutableSet;
 import com.simibubi.create.AllBlocks;
 
-import it.unimi.dsi.fastutil.Arrays;
-import mod.azure.azurelib.animatable.GeoEntity;
 import mod.azure.azurelib.animatable.SingletonGeoAnimatable;
-import mod.azure.azurelib.config.value.ArrayValue;
 import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
 import mod.azure.azurelib.core.animation.AnimatableManager.ControllerRegistrar;
 import mod.azure.azurelib.core.animation.Animation;
@@ -19,9 +18,11 @@ import mod.azure.azurelib.core.animation.Animation.LoopType;
 import mod.azure.azurelib.core.animation.AnimationController;
 import mod.azure.azurelib.core.animation.RawAnimation;
 import mod.azure.azurelib.util.AzureLibUtil;
-import net.minecraft.client.texture.TextureStitcher.Slot;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.AttackGoal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -36,9 +37,17 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.LightType;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
+import net.minecraft.world.dimension.DimensionType;
+public class GearBugEntity extends AbstractCogBotEntity
 {
 	private AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
 	private int convertionValue = 0;
@@ -50,6 +59,23 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
 	public static final TrackedData<String> SLOT1_DATA = DataTracker.registerData(GearBugEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> SLOT2_DATA = DataTracker.registerData(GearBugEntity.class, TrackedDataHandlerRegistry.STRING);
 
+	private static final Set<String> Wool_List = ImmutableSet.of(
+		Blocks.WHITE_WOOL.asItem().toString(),
+		Blocks.ORANGE_WOOL.asItem().toString(),
+		Blocks.MAGENTA_WOOL.asItem().toString(),
+		Blocks.LIGHT_BLUE_WOOL.asItem().toString(),
+		Blocks.YELLOW_WOOL.asItem().toString(),
+		Blocks.LIME_WOOL.asItem().toString(),
+		Blocks.PINK_WOOL.asItem().toString(),
+		Blocks.GRAY_WOOL.asItem().toString(),
+		Blocks.LIGHT_GRAY_WOOL.asItem().toString(),
+		Blocks.CYAN_WOOL.asItem().toString(),
+		Blocks.PURPLE_WOOL.asItem().toString(),
+		Blocks.BLUE_WOOL.asItem().toString(),
+		Blocks.BROWN_WOOL.asItem().toString(),
+		Blocks.GREEN_WOOL.asItem().toString(),
+		Blocks.RED_WOOL.asItem().toString(),
+		Blocks.BLACK_WOOL.asItem().toString());
 
 	private boolean HaveAndesiteCasing = false;
 	private boolean HaveCopperCasing = false;
@@ -86,10 +112,10 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
 	public static DefaultAttributeContainer.Builder createCombatantGearBugAttributes()
 	{
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 15)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-                .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4f)
+                .add(EntityAttributes.GENERIC_ARMOR, 0.0f)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
     }
 
 	@Override
@@ -98,7 +124,10 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
 			if (event.isMoving())
 				return event.setAndContinue(RawAnimation.begin().then("animation.gear_bug.walk", Animation.LoopType.LOOP));
 			return event.setAndContinue(RawAnimation.begin().then("animation.gear_bug.idle", Animation.LoopType.LOOP));
-		}).triggerableAnim("attack", RawAnimation.begin().then("animation.gear_bug.attack", LoopType.PLAY_ONCE)));
+		})
+		.triggerableAnim("attack", RawAnimation.begin().then("animation.gear_bug.attack", LoopType.PLAY_ONCE))
+		.triggerableAnim("convert", RawAnimation.begin().thenPlayAndHold("animation.gear_bug.convert"))
+		.triggerableAnim("death", RawAnimation.begin().thenPlayAndHold("animation.gear_bug.death")));
 	}
 
 	@Override
@@ -107,6 +136,16 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
         if (bl) {
 			this.triggerAnim("base_controller", "attack");
             this.applyDamageEffects(this, target);
+        }
+        return bl;
+    }
+
+	@Override
+    public boolean onKilledOther(ServerWorld world, LivingEntity other) {
+        boolean bl = super.onKilledOther(world, other);
+        if (other instanceof SkeletonEntity)
+		{
+			this.CogConvertTo(200);
         }
         return bl;
     }
@@ -128,6 +167,7 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
 
 		this.targetSelector.add(1, new RevengeGoal(this, new Class[0]).setGroupRevenge(new Class[0]));
 		this.targetSelector.add(2, new ActiveTargetGoal<PlayerEntity>((MobEntity)this, PlayerEntity.class, true));
+		this.targetSelector.add(3, new ActiveTargetGoal<SkeletonEntity>((MobEntity)this, SkeletonEntity.class, true));
 	}
 
 	public void updateGoal()
@@ -148,13 +188,10 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
 		{
             this.LARGE_COGWHEEL_Goal = new CollectCreateBlockGoal(AllBlocks.LARGE_COGWHEEL.get(), this, eatingSpeed, 3);
         }
-		this.goalSelector.add(1, this.ANDESITE_CASING_Goal);
-		this.goalSelector.add(1, this.COPPER_CASING_Goal);
-		this.goalSelector.add(1, this.COGWHEEL_Goal);
-		this.goalSelector.add(1, this.LARGE_COGWHEEL_Goal);
 		this.GoalFilter();
 		if (this.CanConvertTo())
 		{
+			this.triggerAnim("base_controller", "convert");
 			this.CogConvertTo(convertionValue);
 			return;
 		}
@@ -163,21 +200,38 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
 
 	private void GoalFilter()
 	{
-		if (this.getSlot1() == AllBlocks.ANDESITE_CASING.get().asItem().toString() || this.getSlot2() == AllBlocks.ANDESITE_CASING.get().asItem().toString())
+		this.checkItemContent();
+		if (this.HaveAndesiteCasing)
 			{
 				this.targetSelector.remove(this.ANDESITE_CASING_Goal);
 			}
-		if (this.getSlot1() == AllBlocks.COPPER_CASING.get().asItem().toString() || this.getSlot2() == AllBlocks.COPPER_CASING.get().asItem().toString())
+			else
+			{
+				this.goalSelector.add(2, this.ANDESITE_CASING_Goal);
+			}
+		if (this.HaveCopperCasing)
 			{
 				this.targetSelector.remove(this.COPPER_CASING_Goal);
 			}
-		if (this.getSlot1() == AllBlocks.COGWHEEL.get().asItem().toString() || this.getSlot2() == AllBlocks.COGWHEEL.get().asItem().toString())
+			else
+			{
+				this.goalSelector.add(2, this.COPPER_CASING_Goal);
+			}
+		if (this.HaveCogWheel)
 			{
 				this.targetSelector.remove(this.COGWHEEL_Goal);
 			}
-		if (this.getSlot1() == AllBlocks.LARGE_COGWHEEL.get().asItem().toString() || this.getSlot2() == AllBlocks.LARGE_COGWHEEL.get().asItem().toString())
+			else
+			{
+				this.goalSelector.add(2, this.COGWHEEL_Goal);
+			}
+		if (this.HaveLargeCogWheel)
 			{
 				this.targetSelector.remove(this.LARGE_COGWHEEL_Goal);
+			}
+			else
+			{
+				this.goalSelector.add(2, this.LARGE_COGWHEEL_Goal);
 			}
 	}
 	// Conversion
@@ -190,10 +244,13 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
 				this.convertTo(ModEntity.GEAR_DUMMY,false);
 				break;
 			case 2:
-				this.convertTo(ModEntity.GEAR_DUMMY,false);
+				this.convertTo(ModEntity.GEAR_DIVER,false);
 				break;
 			case 3:
-				this.convertTo(ModEntity.GEAR_DUMMY,false);
+				this.convertTo(ModEntity.GEAR_KNIGHT,false);
+				break;
+			case 200:
+				this.convertTo(ModEntity.GEAR_MARROW,false);
 				break;
 		}
     }
@@ -203,25 +260,22 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
 		// Swtich to change value based on invetory item combos
 		if (this.getSlot1() != "nil" && this.getSlot2() != "nil")
 		{
-			this.checkItemContent();
-			if (this.HaveAndesiteCasing && this.HaveCopperCasing)
+			if (this.HaveAndesiteCasing && this.HaveCogWheel)
 			{
+				// Gear Puppet
 				this.convertionValue = 1;
 				return true;
 			}
-			else if (this.HaveAndesiteCasing && this.HaveCogWheel)
+			else if (this.HaveCopperCasing && this.HaveCogWheel)
 			{
+				//Gear diver
 				this.convertionValue = 2;
 				return true;
 			}
 			else if (this.HaveAndesiteCasing && this.HaveLargeCogWheel)
 			{
+				//Gear Knight
 				this.convertionValue = 3;
-				return true;
-			}
-			else if (this.HaveCopperCasing && this.HaveCogWheel)
-			{
-				this.convertionValue = 4;
 				return true;
 			}
 			return false;
@@ -285,4 +339,22 @@ public class GearBugEntity extends AbstractCogBotEntity implements GeoEntity
 	{
         this.dataTracker.set(SLOT2_DATA, item);
 	}
+
+	public static boolean isSpawnDark(ServerWorldAccess world, BlockPos pos, Random random)
+	{
+        if (world.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
+            return false;
+        }
+        DimensionType dimensionType = world.getDimension();
+        int i = dimensionType.monsterSpawnBlockLightLimit();
+        if (i < 15 && world.getLightLevel(LightType.BLOCK, pos) > i) {
+            return false;
+        }
+        int j = world.toServerWorld().isThundering() ? world.getLightLevel(pos, 10) : world.getLightLevel(pos);
+        return j <= dimensionType.monsterSpawnLightTest().get(random);
+    }
+
+    public static boolean canSpawnCog(EntityType<? extends GearBugEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getDifficulty() != Difficulty.PEACEFUL && GearBugEntity.isSpawnDark(world, pos, random) && GearBugEntity.canMobSpawn(type, world, spawnReason, pos, random);
+    }
 }

@@ -3,10 +3,8 @@ package com.azul.CreateContraptionCreatures.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import com.azul.CreateContraptionCreatures.CreateContraptionCreatures;
-import com.simibubi.create.AllBlocks;
-
+import com.azul.CreateContraptionCreatures.block.custom.CCCBlock;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -16,10 +14,11 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
-public class ModBlocks {
-    public static final Block MECHANIC_TABLE = registerBlock("mechanic_table", new Block(FabricBlockSettings.copyOf(AllBlocks.SCHEMATIC_TABLE.get()).sounds(BlockSoundGroup.ANVIL)));
-	public static final Block PLUMBER_TABLE = registerBlock("plumber_table", new Block(FabricBlockSettings.copyOf(AllBlocks.SCHEMATIC_TABLE.get()).sounds(BlockSoundGroup.ANVIL)));
-	public static final Block LOCOMOTIVE_TABLE = registerBlock("locomotive_table", new Block(FabricBlockSettings.copyOf(AllBlocks.SCHEMATIC_TABLE.get()).sounds(BlockSoundGroup.ANVIL)));
+public class ModBlocks
+{
+    public static final Block MECHANIC_TABLE = registerBlock("mechanic_table", new CCCBlock(Block.Settings.create().strength(4.0f).requiresTool().sounds(BlockSoundGroup.ANVIL)));
+	public static final Block PLUMBER_TABLE = registerBlock("plumber_table", new CCCBlock(Block.Settings.create().strength(4.0f).requiresTool().sounds(BlockSoundGroup.ANVIL)));
+	public static final Block LOCOMOTIVE_TABLE = registerBlock("locomotive_table", new CCCBlock(Block.Settings.create().strength(4.0f).requiresTool().sounds(BlockSoundGroup.ANVIL)));
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
@@ -45,4 +44,6 @@ public class ModBlocks {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModBlocks::addItemsToIngredientItemGroup);
     }
+
+
 }

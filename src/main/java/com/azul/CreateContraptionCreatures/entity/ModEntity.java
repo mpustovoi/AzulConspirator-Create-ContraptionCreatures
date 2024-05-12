@@ -27,18 +27,23 @@ public class ModEntity
 	public static final EntityType<AutoPorterEntity> AUTO_PORTER = register("auto_porter", 1250067, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, AutoPorterEntity::new).dimensions(EntityDimensions.fixed(1f, 1.3f)).build());
 	//
-	public static final EntityType<GearBugEntity> GEAR_BUG = register("gear_bug", 1250067, 3092271,
+	public static final EntityType<GearBugEntity> GEAR_BUG = register("gear_bug", 10065300, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearBugEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.5f)).build());
-	public static final EntityType<GearDummyEntity> GEAR_DUMMY = register("gear_dummy", 1250067, 3092271,
+	public static final EntityType<GearDummyEntity> GEAR_DUMMY = register("gear_dummy", 10065300, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearDummyEntity::new).dimensions(EntityDimensions.fixed(1f, 2f)).build());
-	public static final EntityType<GearKnightEntity> GEAR_KNIGHT = register("gear_knight", 1250067, 3092271,
+	public static final EntityType<GearKnightEntity> GEAR_KNIGHT = register("gear_knight", 10065300, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearKnightEntity::new).dimensions(EntityDimensions.fixed(1f, 2f)).build());
-	public static final EntityType<GearDiverEntity> GEAR_DIVER = register("gear_diver", 1250067, 3092271,
+	public static final EntityType<GearDiverEntity> GEAR_DIVER = register("gear_diver", 10065300, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearDiverEntity::new).dimensions(EntityDimensions.fixed(1f, 2f)).build());
 
+	public static final EntityType<GearDummyEntity> GEAR_MARROW = register("gear_marrow", 10065300, 3092271,
+	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearDummyEntity::new).dimensions(EntityDimensions.fixed(1f, 2f)).build());
+
+	//public static final EntityType<SeedProjectileEntity> SEED_PROJECTILE = register("seed_projectile", 0, 0,
+	//FabricEntityTypeBuilder.create(SpawnGroup.MISC, SeedProjectileEntity::new).dimensions(EntityDimensions.fixed(4f, 20f)).build());
 
 
-	// Credit to AdventureZ, it compressed the mob registry code by a lot
+	// Credit to AdventureZ, it compres	sed the mob registry code by a lot
 	private static <T extends Entity> EntityType<T> register(String id, int primaryColor, int secondaryColor, EntityType<T> entityType)
 	{
 		if (primaryColor != 0)

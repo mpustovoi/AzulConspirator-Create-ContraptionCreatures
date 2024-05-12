@@ -1,8 +1,7 @@
 package com.azul.CreateContraptionCreatures.entity.custom.Combatants;
 
-import com.azul.CreateContraptionCreatures.entity.custom.AbstractCogBotEntity;
+import com.azul.CreateContraptionCreatures.entity.custom.AbstractHostileCogBotEntity;
 
-import mod.azure.azurelib.animatable.GeoEntity;
 import mod.azure.azurelib.animatable.SingletonGeoAnimatable;
 import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
 import mod.azure.azurelib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -17,11 +16,11 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.world.World;
 
-public class GearDummyEntity extends AbstractCogBotEntity implements GeoEntity
+public class GearDummyEntity extends AbstractHostileCogBotEntity
 {
 	private AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
 
-	public GearDummyEntity(net.minecraft.entity.EntityType<? extends AbstractCogBotEntity> entityType, World world){
+	public GearDummyEntity(net.minecraft.entity.EntityType<? extends AbstractHostileCogBotEntity> entityType, World world){
 		super(entityType, world);
 		SingletonGeoAnimatable.registerSyncedAnimatable(this);
 	}
@@ -29,10 +28,9 @@ public class GearDummyEntity extends AbstractCogBotEntity implements GeoEntity
 	public static DefaultAttributeContainer.Builder createCombatantGearDummyAttributes()
 	{
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 15)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-                .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4);
+			.add(EntityAttributes.GENERIC_MAX_HEALTH, 35)
+			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
+			.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3);
     }
 
 	@Override

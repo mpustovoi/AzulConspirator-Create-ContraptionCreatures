@@ -6,9 +6,10 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 
+import mod.azure.azurelib.animatable.GeoEntity;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -21,6 +22,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -29,17 +31,9 @@ import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.LightType;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.dimension.DimensionType;
-
 public abstract class AbstractCogBotEntity extends PathAwareEntity
-implements net.minecraft.entity.mob.Monster,Angerable
+implements Monster,Angerable, GeoEntity
 {
 	@Nullable
     private UUID angryAt;
@@ -106,31 +100,9 @@ implements net.minecraft.entity.mob.Monster,Angerable
         return SoundEvents.ENTITY_HOSTILE_DEATH;
     }
 
-	@Override
-    public float getPathfindingFavor(BlockPos pos, WorldView world) {
-        return -world.getPhototaxisFavor(pos);
-    }
-
     @Override
     public LivingEntity.FallSounds getFallSounds() {
         return new LivingEntity.FallSounds(SoundEvents.ENTITY_HOSTILE_SMALL_FALL, SoundEvents.ENTITY_HOSTILE_BIG_FALL);
-    }
-
-    public static boolean isSpawnCorrect(ServerWorldAccess world, BlockPos pos, Random random) {
-        if (world.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
-            return false;
-        }
-        DimensionType dimensionType = world.getDimension();
-        int i = dimensionType.monsterSpawnBlockLightLimit();
-        if (i < 15 && world.getLightLevel(LightType.BLOCK, pos) > i) {
-            return false;
-        }
-        int j = world.toServerWorld().isThundering() ? world.getLightLevel(pos, 10) : world.getLightLevel(pos);
-        return j <= dimensionType.monsterSpawnLightTest().get(random);
-    }
-
-    public static boolean canSpawnCog(EntityType<? extends AbstractCogBotEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getDifficulty() != Difficulty.PEACEFUL && AbstractCogBotEntity.isSpawnCorrect(world, pos, random) && AbstractCogBotEntity.canMobSpawn(type, world, spawnReason, pos, random);
     }
 
     @Override
@@ -179,6 +151,14 @@ implements net.minecraft.entity.mob.Monster,Angerable
             return itemStack.isEmpty() ? new ItemStack(Items.ARROW) : itemStack;
         }
         return ItemStack.EMPTY;
+    }
+
+	@Override
+    public void onDeath(DamageSource damageSource)
+	{
+		this.triggerAnim("base_controller", "death");
+        super.onDeath(damageSource);
+
     }
 }
 

@@ -43,6 +43,17 @@
 			"loop": true,
 			"animation_length": 1,
 			"bones": {
+				"drillhead": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, "180*4"],
+							"easing": "easeInBounce"
+						}
+					}
+				},
 				"cog": {
 					"rotation": {
 						"0.0": {
