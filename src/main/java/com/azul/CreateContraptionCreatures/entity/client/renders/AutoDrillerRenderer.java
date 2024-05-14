@@ -1,6 +1,5 @@
 package com.azul.CreateContraptionCreatures.entity.client.renders;
 
-import com.azul.CreateContraptionCreatures.CreateContraptionCreatures;
 import com.azul.CreateContraptionCreatures.entity.client.models.AutoDrillerModel;
 import com.azul.CreateContraptionCreatures.entity.custom.Gatherers.AutoDrillerEntity;
 
@@ -15,8 +14,6 @@ import net.fabricmc.api.Environment;
 @Environment(value=EnvType.CLIENT)
 public class AutoDrillerRenderer extends GeoEntityRenderer<AutoDrillerEntity>
 {
-		private static final Identifier BASE_TEX = new Identifier(CreateContraptionCreatures.MOD_ID, "textures/entity/auto_driller.png");
-
 		public AutoDrillerRenderer(EntityRendererFactory.Context renderManagerIn) {
 			super(renderManagerIn, new AutoDrillerModel());
 		}
@@ -29,11 +26,8 @@ public class AutoDrillerRenderer extends GeoEntityRenderer<AutoDrillerEntity>
 		@Override
 		public Identifier getTextureLocation(AutoDrillerEntity object)
 		{
-/* 			if (object.hasAngerTime())
-			{
-				return ANGRY_TEX;
-			} */
-			return BASE_TEX;
+
+			return this.getGeoModel().getTextureResource(object);
 		}
 
 		@Override

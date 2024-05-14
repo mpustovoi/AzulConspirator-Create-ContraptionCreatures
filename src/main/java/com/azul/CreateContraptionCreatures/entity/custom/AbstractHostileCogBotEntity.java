@@ -3,6 +3,7 @@ package com.azul.CreateContraptionCreatures.entity.custom;
 import com.google.common.base.Predicate;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.AttackGoal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -22,7 +23,13 @@ import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.LightType;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 
 public abstract class AbstractHostileCogBotEntity extends AbstractCogBotEntity
 {
@@ -83,6 +90,24 @@ public abstract class AbstractHostileCogBotEntity extends AbstractCogBotEntity
             return itemStack.isEmpty() ? new ItemStack(Items.ARROW) : itemStack;
         }
         return ItemStack.EMPTY;
+    }
+
+	public static boolean isSpawnDark(ServerWorldAccess world, BlockPos pos, Random random)
+	{
+        if (world.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
+            return false;
+        }
+        DimensionType dimensionType = world.getDimension();
+        int i = dimensionType.monsterSpawnBlockLightLimit();
+        if (i < 15 && world.getLightLevel(LightType.BLOCK, pos) > i) {
+            return false;
+        }
+        int j = world.toServerWorld().isThundering() ? world.getLightLevel(pos, 10) : world.getLightLevel(pos);
+        return j <= dimensionType.monsterSpawnLightTest().get(random);
+    }
+
+    public static boolean canSpawnCog(EntityType<? extends AbstractHostileCogBotEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getDifficulty() != Difficulty.PEACEFUL && AbstractHostileCogBotEntity.isSpawnDark(world, pos, random) && AbstractHostileCogBotEntity.canMobSpawn(type, world, spawnReason, pos, random);
     }
 }
 

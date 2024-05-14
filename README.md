@@ -9,8 +9,6 @@ this mod aims to add Create based Villager Jobs & Trades and Mechanical themed M
     - Mechanic : Trade Andesite Age Stuff
     - Plumber : Trade Copper stuff
     - Locomotive Worker : Trade Train Centric Stuff
-
-(For now the tables can only be crafted, havent got a good solution for it to generated as structures just yet)
 ```
 ### Custom Mobs
 ```

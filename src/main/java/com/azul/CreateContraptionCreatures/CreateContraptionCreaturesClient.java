@@ -31,5 +31,6 @@ public class CreateContraptionCreaturesClient implements ClientModInitializer
 		EntityRendererRegistry.register(ModEntity.GEAR_DUMMY, GearDummyRenderer::new);
 		EntityRendererRegistry.register(ModEntity.GEAR_DIVER, GearDiverRenderer::new);
 		EntityRendererRegistry.register(ModEntity.GEAR_KNIGHT, GearKnightRenderer::new);
+		EntityRendererRegistry.register(ModEntity.GEAR_MARROW, GearMarrowRenderer::new);
     }
 }

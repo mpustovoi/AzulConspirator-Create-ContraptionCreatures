@@ -1,13 +1,12 @@
 package com.azul.CreateContraptionCreatures.entity.custom;
 
 import java.util.UUID;
-
 import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 
 import mod.azure.azurelib.animatable.GeoEntity;
-
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -16,6 +15,7 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.ai.goal.WanderNearTargetGoal;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -37,6 +37,7 @@ implements Monster,Angerable, GeoEntity
 {
 	@Nullable
     private UUID angryAt;
+	private boolean isdying = false;
 
     public AbstractCogBotEntity(EntityType<? extends PathAwareEntity> entityType, World world)
 	{
@@ -52,6 +53,7 @@ implements Monster,Angerable, GeoEntity
 	{
         this.goalSelector.add(1, new SwimGoal(this));;
         this.goalSelector.add(5, new MeleeAttackGoal(this, 1.0, true));
+		this.goalSelector.add(5, new WanderNearTargetGoal(this, 1.0, 15));
         this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(10, new LookAroundGoal(this));
 
@@ -68,6 +70,34 @@ implements Monster,Angerable, GeoEntity
         return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE);
     }
 
+	@Override
+    public boolean tryAttack(Entity target)
+	{
+        boolean bl = target.damage(this.getDamageSources().mobAttack(this), (int)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE));
+        if (bl) {
+			this.triggerAnim("base_controller", "attack");
+            this.applyDamageEffects(this, target);
+        }
+        return bl;
+	}
+
+	@Override
+    public void onDeath(DamageSource damageSource)
+	{
+		if (!this.isdying)
+		{
+			this.triggerAnim("base_controller", "death");
+			this.isdying = true;
+		}
+        super.onDeath(damageSource);
+    }
+
+	@Override
+	public void tick()
+	{
+
+		super.tick();
+	}
     @Override
     public void tickMovement()
 	{
@@ -151,14 +181,6 @@ implements Monster,Angerable, GeoEntity
             return itemStack.isEmpty() ? new ItemStack(Items.ARROW) : itemStack;
         }
         return ItemStack.EMPTY;
-    }
-
-	@Override
-    public void onDeath(DamageSource damageSource)
-	{
-		this.triggerAnim("base_controller", "death");
-        super.onDeath(damageSource);
-
     }
 }
 

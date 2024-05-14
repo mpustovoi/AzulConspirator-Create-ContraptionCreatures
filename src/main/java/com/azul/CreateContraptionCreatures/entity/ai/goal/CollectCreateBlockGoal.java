@@ -36,7 +36,7 @@ public class CollectCreateBlockGoal extends MoveToTargetPosGoal
 	{
 		final World world = this.EaterMob.getWorld();
 
-        if (!world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING))
+        if (!world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING) || this.EaterMob.isConverting)
 		{
             return false;
         }

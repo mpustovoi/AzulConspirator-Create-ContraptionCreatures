@@ -30,6 +30,9 @@
     "item.createcontraptioncreatures.gear_diver": "Gear Diver Spawn Egg",
 
     "entity.createcontraptioncreatures.gear_knight": "Gear Knight",
-    "item.createcontraptioncreatures.gear_knight": "Gear Knight Spawn Egg"
+    "item.createcontraptioncreatures.gear_knight": "Gear Knight Spawn Egg",
+
+    "entity.createcontraptioncreatures.gear_marrow": "Gear Marrow",
+    "item.createcontraptioncreatures.gear_marrow": "Gear Marrow Spawn Egg"
 
 }

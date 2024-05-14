@@ -10,7 +10,7 @@ import mod.azure.azurelib.core.animation.Animation.LoopType;
 import mod.azure.azurelib.core.animation.AnimationController;
 import mod.azure.azurelib.core.animation.RawAnimation;
 import mod.azure.azurelib.util.AzureLibUtil;
-import net.minecraft.entity.Entity;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -59,16 +59,6 @@ public class AutoLumbererEntity extends AbstractCogBotEntity
 	}
 
 	@Override
-    public boolean tryAttack(Entity target) {
-        boolean bl = target.damage(this.getDamageSources().mobAttack(this), (int)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE));
-        if (bl) {
-			this.triggerAnim("base_controller", "attack");
-            this.applyDamageEffects(this, target);
-        }
-        return bl;
-    }
-
-	@Override
 	public AnimatableInstanceCache getAnimatableInstanceCache() {
 		return this.cache;
 	}
@@ -90,7 +80,7 @@ public class AutoLumbererEntity extends AbstractCogBotEntity
 
 	public static boolean isSpawnCorrect(ServerWorldAccess world, BlockPos pos, Random random)
 	{
-		if (pos.getY() <= 20) {
+		if (pos.getY() <= 50) {
             return false;
         }
         return true;

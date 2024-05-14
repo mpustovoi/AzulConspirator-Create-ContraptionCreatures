@@ -36,8 +36,8 @@ public class ModEntity
 	public static final EntityType<GearDiverEntity> GEAR_DIVER = register("gear_diver", 10065300, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearDiverEntity::new).dimensions(EntityDimensions.fixed(1f, 2f)).build());
 
-	public static final EntityType<GearDummyEntity> GEAR_MARROW = register("gear_marrow", 10065300, 3092271,
-	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearDummyEntity::new).dimensions(EntityDimensions.fixed(1f, 2f)).build());
+	public static final EntityType<GearMarrowEntity> GEAR_MARROW = register("gear_marrow", 10065300, 3092271,
+	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearMarrowEntity::new).dimensions(EntityDimensions.fixed(1f, 2.7f)).build());
 
 	//public static final EntityType<SeedProjectileEntity> SEED_PROJECTILE = register("seed_projectile", 0, 0,
 	//FabricEntityTypeBuilder.create(SpawnGroup.MISC, SeedProjectileEntity::new).dimensions(EntityDimensions.fixed(4f, 20f)).build());
@@ -67,5 +67,7 @@ public class ModEntity
 		FabricDefaultAttributeRegistry.register(ModEntity.GEAR_DUMMY, GearDummyEntity.createCombatantGearDummyAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntity.GEAR_KNIGHT, GearKnightEntity.createCombatantGearKnightAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntity.GEAR_DIVER, GearDiverEntity.createCombatantGearDiverAttributes());
+
+		FabricDefaultAttributeRegistry.register(ModEntity.GEAR_MARROW, GearMarrowEntity.createCombatantGearMarrowAttributes());
 	}
 }

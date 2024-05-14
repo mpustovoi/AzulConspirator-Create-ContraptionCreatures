@@ -39,7 +39,8 @@ public class GearDummyEntity extends AbstractHostileCogBotEntity
 			if (event.isMoving())
 				return event.setAndContinue(RawAnimation.begin().then("animation.gear_dummy.walk", Animation.LoopType.LOOP));
 			return event.setAndContinue(RawAnimation.begin().then("animation.gear_dummy.idle", Animation.LoopType.LOOP));
-		}).triggerableAnim("attack", RawAnimation.begin().then("animation.gear_dummy.attack", LoopType.PLAY_ONCE)));
+		}).triggerableAnim("death", RawAnimation.begin().then("animation.gear_dummy.death", LoopType.HOLD_ON_LAST_FRAME))
+		.triggerableAnim("attack", RawAnimation.begin().then("animation.gear_dummy.attack", LoopType.PLAY_ONCE)));
 	}
 
 	@Override

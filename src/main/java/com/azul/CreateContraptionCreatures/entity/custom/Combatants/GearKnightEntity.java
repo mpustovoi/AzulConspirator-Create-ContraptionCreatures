@@ -28,7 +28,7 @@ public class GearKnightEntity extends AbstractHostileCogBotEntity
 	public static DefaultAttributeContainer.Builder createCombatantGearKnightAttributes()
 	{
         return MobEntity.createMobAttributes()
-		.add(EntityAttributes.GENERIC_MAX_HEALTH, 90.0)
+		.add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0)
 		.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f)
 		.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.5)
 		.add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.5)
@@ -42,6 +42,7 @@ public class GearKnightEntity extends AbstractHostileCogBotEntity
 				return event.setAndContinue(RawAnimation.begin().then("animation.gear_knight.walk", Animation.LoopType.LOOP));
 			return event.setAndContinue(RawAnimation.begin().then("animation.gear_knight.idle", Animation.LoopType.LOOP));
 		})
+		.triggerableAnim("death", RawAnimation.begin().then("animation.gear_knight.death", LoopType.HOLD_ON_LAST_FRAME))
 		.triggerableAnim("attack", RawAnimation.begin().then("animation.gear_knight.attack", LoopType.HOLD_ON_LAST_FRAME))
 		.triggerableAnim("end_attack", RawAnimation.begin().then("animation.gear_knight.end_attack", LoopType.PLAY_ONCE)));
 	}
