@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 public class AutoDrillerModel extends GeoModel<AutoDrillerEntity>
 {
 	private static final Identifier BASE_TEX = new Identifier(CreateContraptionCreatures.MOD_ID, "textures/entity/auto_driller.png");
+	@SuppressWarnings("unused")
 	private static final Identifier ANGRY_TEX = new Identifier(CreateContraptionCreatures.MOD_ID, "textures/entity/auto_driller_angry.png");
 
     @Override

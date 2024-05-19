@@ -1,7 +1,9 @@
 package com.azul.CreateContraptionCreatures.entity.ai.goal;
 
+import com.google.common.collect.ImmutableSet;
 import com.azul.CreateContraptionCreatures.entity.custom.Combatants.GearBugEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +25,24 @@ public class CollectCreateBlockGoal extends MoveToTargetPosGoal
     private float progress;
 	private float ratio;
 
+	@SuppressWarnings("unused")
+	private static final ImmutableSet<String> Wool_List = ImmutableSet.of(
+		Blocks.WHITE_WOOL.asItem().toString(),
+		Blocks.ORANGE_WOOL.asItem().toString(),
+		Blocks.MAGENTA_WOOL.asItem().toString(),
+		Blocks.LIGHT_BLUE_WOOL.asItem().toString(),
+		Blocks.YELLOW_WOOL.asItem().toString(),
+		Blocks.LIME_WOOL.asItem().toString(),
+		Blocks.PINK_WOOL.asItem().toString(),
+		Blocks.GRAY_WOOL.asItem().toString(),
+		Blocks.LIGHT_GRAY_WOOL.asItem().toString(),
+		Blocks.CYAN_WOOL.asItem().toString(),
+		Blocks.PURPLE_WOOL.asItem().toString(),
+		Blocks.BLUE_WOOL.asItem().toString(),
+		Blocks.BROWN_WOOL.asItem().toString(),
+		Blocks.GREEN_WOOL.asItem().toString(),
+		Blocks.RED_WOOL.asItem().toString(),
+		Blocks.BLACK_WOOL.asItem().toString());
 
     public CollectCreateBlockGoal(Block targetBlocks, GearBugEntity mob, double speed, int maxYDifference)
 	{

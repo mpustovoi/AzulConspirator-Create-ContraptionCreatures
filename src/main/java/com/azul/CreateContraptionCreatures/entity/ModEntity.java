@@ -1,8 +1,15 @@
 package com.azul.CreateContraptionCreatures.entity;
 
-import net.minecraft.entity.EntityType;
+import com.azul.CreateContraptionCreatures.CreateContraptionCreatures;
+import com.azul.CreateContraptionCreatures.entity.custom.Combatants.*;
+import com.azul.CreateContraptionCreatures.entity.custom.Gatherers.*;
+
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.Item;
@@ -11,15 +18,11 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import com.azul.CreateContraptionCreatures.CreateContraptionCreatures;
-import com.azul.CreateContraptionCreatures.entity.custom.Combatants.*;
-import com.azul.CreateContraptionCreatures.entity.custom.Gatherers.*;
 
 public class ModEntity
 {
+
+
 	public static final EntityType<AutoDrillerEntity> AUTO_DRILLER = register("auto_driller", 1250067, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, AutoDrillerEntity::new).dimensions(EntityDimensions.fixed(1f, 1.3f)).build());
 	public static final EntityType<AutoLumbererEntity> AUTO_LUMBERER = register("auto_lumberer", 1250067, 3092271,
@@ -39,11 +42,8 @@ public class ModEntity
 	public static final EntityType<GearMarrowEntity> GEAR_MARROW = register("gear_marrow", 10065300, 3092271,
 	FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GearMarrowEntity::new).dimensions(EntityDimensions.fixed(1f, 2.7f)).build());
 
-	//public static final EntityType<SeedProjectileEntity> SEED_PROJECTILE = register("seed_projectile", 0, 0,
-	//FabricEntityTypeBuilder.create(SpawnGroup.MISC, SeedProjectileEntity::new).dimensions(EntityDimensions.fixed(4f, 20f)).build());
 
-
-	// Credit to AdventureZ, it compres	sed the mob registry code by a lot
+	// Credit to AdventureZ, it compresses the mob registry code by a lot
 	private static <T extends Entity> EntityType<T> register(String id, int primaryColor, int secondaryColor, EntityType<T> entityType)
 	{
 		if (primaryColor != 0)

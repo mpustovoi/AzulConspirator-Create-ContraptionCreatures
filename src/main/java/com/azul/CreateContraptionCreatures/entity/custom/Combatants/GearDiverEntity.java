@@ -139,7 +139,8 @@ public class GearDiverEntity  extends AbstractHostileCogBotEntity
 	}
 
 	protected boolean hasFinishedCurrentPath() {
-        double d;
+        @SuppressWarnings("unused")
+		double d;
         BlockPos blockPos;
         Path path = this.getNavigation().getCurrentPath();
         return path != null && (blockPos = path.getTarget()) != null && (d = this.squaredDistanceTo(blockPos.getX(), blockPos.getY(), blockPos.getZ())) < 4.0;
@@ -157,6 +158,7 @@ public class GearDiverEntity  extends AbstractHostileCogBotEntity
         this.targetingUnderwater = targetingUnderwater;
     }
 
+	@SuppressWarnings("resource")
 	@Override
     public void updateSwimming() {
         if (!this.getWorld().isClient) {

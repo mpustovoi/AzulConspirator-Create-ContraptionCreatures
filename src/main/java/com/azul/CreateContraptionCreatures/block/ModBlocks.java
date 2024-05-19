@@ -16,9 +16,9 @@ import net.minecraft.util.Identifier;
 
 public class ModBlocks
 {
-    public static final Block MECHANIC_TABLE = registerBlock("mechanic_table", new CCCBlock(Block.Settings.create().strength(4.0f).requiresTool().sounds(BlockSoundGroup.ANVIL)));
-	public static final Block PLUMBER_TABLE = registerBlock("plumber_table", new CCCBlock(Block.Settings.create().strength(4.0f).requiresTool().sounds(BlockSoundGroup.ANVIL)));
-	public static final Block LOCOMOTIVE_TABLE = registerBlock("locomotive_table", new CCCBlock(Block.Settings.create().strength(4.0f).requiresTool().sounds(BlockSoundGroup.ANVIL)));
+    public static final Block MECHANIC_TABLE = registerBlock("mechanic_table", new CCCBlock(Block.Settings.create().strength(4.0f).sounds(BlockSoundGroup.ANVIL)));
+	public static final Block PLUMBER_TABLE = registerBlock("plumber_table", new CCCBlock(Block.Settings.create().strength(4.0f).sounds(BlockSoundGroup.ANVIL)));
+	public static final Block LOCOMOTIVE_TABLE = registerBlock("locomotive_table", new CCCBlock(Block.Settings.create().strength(4.0f).sounds(BlockSoundGroup.ANVIL)));
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

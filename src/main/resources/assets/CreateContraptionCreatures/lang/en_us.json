@@ -9,6 +9,13 @@
     "block.createcontraptioncreatures.locomotive_table": "Locomotive Table",
     "entity.minecraft.villager.ccc_locomotiveworker": "Locomotive Worker",
 
+    "_E": "//Guns",
+    "item.createcontraptioncreatures.pea_shooter": "Pea Shooter",
+    "entity.createcontraptioncreatures.sharpen_seeds": "Sharpen Seeds",
+
+    "item.createcontraptioncreatures.melon_lobber": "Melon Lobber",
+    "entity.createcontraptioncreatures.thrown_melon": "Thrown Melon",
+
     "_B": "//Neutral Automatons",
     "entity.createcontraptioncreatures.auto_driller": "Driller Automaton",
     "item.createcontraptioncreatures.auto_driller": "Driller Automaton Spawn Egg",
@@ -34,5 +41,7 @@
 
     "entity.createcontraptioncreatures.gear_marrow": "Gear Marrow",
     "item.createcontraptioncreatures.gear_marrow": "Gear Marrow Spawn Egg"
+
+
 
 }

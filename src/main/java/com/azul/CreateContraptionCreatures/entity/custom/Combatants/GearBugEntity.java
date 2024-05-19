@@ -1,13 +1,10 @@
 package com.azul.CreateContraptionCreatures.entity.custom.Combatants;
 
-import java.util.Set;
-
 import javax.annotation.Nullable;
 
 import com.azul.CreateContraptionCreatures.entity.ModEntity;
 import com.azul.CreateContraptionCreatures.entity.ai.goal.CollectCreateBlockGoal;
 import com.azul.CreateContraptionCreatures.entity.custom.AbstractCogBotEntity;
-import com.google.common.collect.ImmutableSet;
 import com.simibubi.create.AllBlocks;
 
 import mod.azure.azurelib.animatable.SingletonGeoAnimatable;
@@ -15,12 +12,10 @@ import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
 import mod.azure.azurelib.core.animation.AnimatableManager.ControllerRegistrar;
 import mod.azure.azurelib.core.animation.Animation;
 import mod.azure.azurelib.core.animation.Animation.LoopType;
-import mod.azure.azurelib.core.object.PlayState;
 import mod.azure.azurelib.core.animation.AnimationController;
 import mod.azure.azurelib.core.animation.RawAnimation;
+import mod.azure.azurelib.core.object.PlayState;
 import mod.azure.azurelib.util.AzureLibUtil;
-
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -60,23 +55,6 @@ public class GearBugEntity extends AbstractCogBotEntity
 	public static final TrackedData<String> SLOT1_DATA = DataTracker.registerData(GearBugEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> SLOT2_DATA = DataTracker.registerData(GearBugEntity.class, TrackedDataHandlerRegistry.STRING);
 
-	private static final Set<String> Wool_List = ImmutableSet.of(
-		Blocks.WHITE_WOOL.asItem().toString(),
-		Blocks.ORANGE_WOOL.asItem().toString(),
-		Blocks.MAGENTA_WOOL.asItem().toString(),
-		Blocks.LIGHT_BLUE_WOOL.asItem().toString(),
-		Blocks.YELLOW_WOOL.asItem().toString(),
-		Blocks.LIME_WOOL.asItem().toString(),
-		Blocks.PINK_WOOL.asItem().toString(),
-		Blocks.GRAY_WOOL.asItem().toString(),
-		Blocks.LIGHT_GRAY_WOOL.asItem().toString(),
-		Blocks.CYAN_WOOL.asItem().toString(),
-		Blocks.PURPLE_WOOL.asItem().toString(),
-		Blocks.BLUE_WOOL.asItem().toString(),
-		Blocks.BROWN_WOOL.asItem().toString(),
-		Blocks.GREEN_WOOL.asItem().toString(),
-		Blocks.RED_WOOL.asItem().toString(),
-		Blocks.BLACK_WOOL.asItem().toString());
 
 	private boolean HaveAndesiteCasing = false;
 	private boolean HaveCopperCasing = false;
