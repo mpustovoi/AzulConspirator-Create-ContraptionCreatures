@@ -32,7 +32,7 @@ public class GearKnightEntity extends AbstractHostileCogBotEntity
 		.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f)
 		.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.5)
 		.add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.5)
-		.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 15.0);
+		.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 10.0);
     }
 
 	@Override

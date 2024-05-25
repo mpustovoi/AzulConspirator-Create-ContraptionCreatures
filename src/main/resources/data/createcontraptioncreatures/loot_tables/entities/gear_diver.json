@@ -1,0 +1,153 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+      {
+          "rolls": 1,
+          "entries": [
+              {
+                  "type": "minecraft:item",
+                  "name": "create:spout",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 1
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "create:mechanical_pump",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 1
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "create:smart_fluid_pipe",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 1
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "create:fluid_valve",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 1
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "create:copper_valve_handle",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 1
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "create:fluid_pipe",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 8
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "create:fluid_tank",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 2
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "create:veridium",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 12
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "minecraft:asurine",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 12
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "create:portable_fluid_interface",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 2
+                          }
+                      }
+                  ]
+              },
+              {
+                  "type": "minecraft:item",
+                  "name": "minecraft:raw_copper_block",
+                  "functions": [
+                      {
+                          "function": "minecraft:set_count",
+                          "count": {
+                              "min": 1,
+                              "max": 5
+                          }
+                      }
+                  ]
+              }
+          ]
+      }
+  ]
+}

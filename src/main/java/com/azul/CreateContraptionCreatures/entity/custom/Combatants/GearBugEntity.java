@@ -102,20 +102,24 @@ public class GearBugEntity extends AbstractCogBotEntity
 
 	@Override
 	public void registerControllers(ControllerRegistrar controllers) {
-		controllers.add(new AnimationController<>(this, event -> {
-				if (!this.isConverting && !this.dead)
+
+		controllers
+		.add(new AnimationController<>(this, "base_controller", 0, event ->
+		{
+			if (!this.isConverting && !this.dead)
+			{
+				if (event.isMoving())
 				{
-					if (event.isMoving())
-					{
-						return event.setAndContinue(RawAnimation.begin().then("animation.gear_bug.walk", Animation.LoopType.LOOP));
-					}
-					return event.setAndContinue(RawAnimation.begin().then("animation.gear_bug.idle", Animation.LoopType.LOOP));
+					return event.setAndContinue(RawAnimation.begin().then("animation.gear_bug.walk", Animation.LoopType.LOOP));
 				}
-				return PlayState.STOP;
-		})
+				return event.setAndContinue(RawAnimation.begin().then("animation.gear_bug.idle", Animation.LoopType.LOOP));
+			}
+			return PlayState.STOP;
+        })
 		.triggerableAnim("attack", RawAnimation.begin().then("animation.gear_bug.attack", LoopType.PLAY_ONCE))
-		.triggerableAnim("convert", RawAnimation.begin().thenPlayAndHold("animation.gear_bug.convert").thenWait(30))
-		.triggerableAnim("death", RawAnimation.begin().thenPlayAndHold("animation.gear_bug.death").thenWait(30)));
+		.triggerableAnim("death", RawAnimation.begin().thenPlayAndHold("animation.gear_bug.death").thenWait(30)))
+		.add(new AnimationController<>(this, "convert_controller", 0, event -> PlayState.STOP)
+		.triggerableAnim("convert", RawAnimation.begin().then("animation.gear_bug.convert",LoopType.HOLD_ON_LAST_FRAME)));
 	}
 
 	@Override
@@ -126,7 +130,8 @@ public class GearBugEntity extends AbstractCogBotEntity
 		{
 			if(this.convertTime == 0)
 			{
-				this.triggerAnim("base_controller", "convert");
+				this.triggerAnim("convert_controller", "convert");
+				this.fallDistance = 1.0f;
 				this.setAiDisabled(true);
 			}
 			++this.convertTime;

@@ -1,6 +1,5 @@
 package com.azul.CreateContraptionCreatures.item.weapon;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -17,7 +16,8 @@ import mod.azure.azurelib.core.animation.AnimationController;
 import mod.azure.azurelib.core.animation.RawAnimation;
 import mod.azure.azurelib.core.object.PlayState;
 import mod.azure.azurelib.util.AzureLibUtil;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -26,8 +26,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 /*
  *  Gun Concept : uses Pumpkins and Melons, Low Damage but High Ammo Capacity
@@ -44,7 +43,6 @@ public class MelonLobberItem extends ContraptionBaseGunItem
 		magsize = mag;
 		cooldown = cool;
 		AmmoItem = Ammo;
-		SetFireMode(0);
 		SingletonGeoAnimatable.registerSyncedAnimatable(this);
 	}
 
@@ -54,7 +52,18 @@ public class MelonLobberItem extends ContraptionBaseGunItem
 	{
 		controllers.add(new AnimationController[]{(new AnimationController(this,"shoot_controller", (event) ->
 		{
-			return PlayState.CONTINUE;
+			MinecraftClient client = MinecraftClient.getInstance();
+        	ClientPlayerEntity player = client.player;
+			if (player != null)
+			{
+				ItemStack mainHandStack = player.getStackInHand(Hand.MAIN_HAND);
+				ItemStack offHandStack = player.getStackInHand(Hand.OFF_HAND);
+
+				if (mainHandStack.getItem() == this || offHandStack.getItem() == this) {
+					return PlayState.CONTINUE;
+				}
+			}
+			return PlayState.STOP;
 		}))
 			.triggerableAnim("firing", RawAnimation.begin().then("animation.melon_lobber.firing", LoopType.PLAY_ONCE))
 			.triggerableAnim("reload", RawAnimation.begin().then("animation.melon_lobber.reload", LoopType.PLAY_ONCE))});
@@ -81,13 +90,6 @@ public class MelonLobberItem extends ContraptionBaseGunItem
     	var bullet = new MelonAmmoEntity(worldIn, shooter, enchantlevel > 0 ? (bulletDamage + (enchantlevel * 1.5F + 0.5F)) : bulletDamage, effectlevel);
         return bullet;
     }
-
-	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-		var enchantlevel = EnchantmentHelper.getLevel(Enchantments.POWER, stack);
-		super.appendTooltip(stack, world, tooltip, context);
-		tooltip.add(Text.translatable("Damage: " + (enchantlevel > 0 ? (bulletDamage + (enchantlevel * 1.5F + 0.5F)) : bulletDamage)).formatted(Formatting.ITALIC));
-	}
 
 	// Creates the render
 	@Override

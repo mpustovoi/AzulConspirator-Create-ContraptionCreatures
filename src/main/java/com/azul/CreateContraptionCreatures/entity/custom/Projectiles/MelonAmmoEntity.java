@@ -3,6 +3,7 @@ package com.azul.CreateContraptionCreatures.entity.custom.Projectiles;
 import java.util.List;
 
 import com.azul.CreateContraptionCreatures.item.ModItem;
+import com.simibubi.create.foundation.utility.VecHelper;
 
 import mod.azure.azurelib.animatable.GeoEntity;
 import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
@@ -28,7 +29,10 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 
@@ -39,9 +43,6 @@ public class MelonAmmoEntity extends PersistentProjectileEntity implements GeoEn
 	protected boolean inAir;
 	private static float bulletdamage;
 	private static int EffectPotency;
-
-	// Create a StatusEffectInstance for Regeneration II that lasts for 10 seconds (200 ticks)
-
 
 	private final AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
 
@@ -77,36 +78,35 @@ public class MelonAmmoEntity extends PersistentProjectileEntity implements GeoEn
 		return this.cache;
 	}
 
-
 	@Override
-	protected void onHit(LivingEntity living) {
-		super.onHit(living);
-		ItemStack XplodeItem = this.asItemStack();
-		this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, XplodeItem), true, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
-		if (!(living instanceof PlayerEntity))
-		{
-			living.hurtTime = 0;
-			living.setVelocity(0, 0, 0);
-		}
+	protected void onHit(LivingEntity hitResult)
+	{
+		super.onHit(hitResult);
 	}
 
+	@SuppressWarnings("resource")
 	@Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        if (!this.getWorld().isClient())
+    protected void onBlockHit(BlockHitResult blockHitResult)
+	{
+		this.spawnImpactParticles();
+        super.onBlockHit(blockHitResult);
+		if (!this.getWorld().isClient())
 		{
             this.createLingeringEffect(EffectPotency);
             this.setSound(SoundEvents.BLOCK_HONEY_BLOCK_BREAK);
             this.remove(RemovalReason.DISCARDED);
         }
-        super.onBlockHit(blockHitResult);
+
     }
 
-    @Override
+    @SuppressWarnings("resource")
+	@Override
     protected void onEntityHit(EntityHitResult entityHitResult)
 	{
+		this.spawnImpactParticles();
         super.onEntityHit(entityHitResult);
-
-        if (!this.getWorld().isClient()) {
+        if (!this.getWorld().isClient())
+		{
             this.applyDamageToNearbyEntities();
             this.remove(RemovalReason.DISCARDED);
         }
@@ -184,11 +184,16 @@ public class MelonAmmoEntity extends PersistentProjectileEntity implements GeoEn
         return SoundEvents.BLOCK_SCULK_CATALYST_BREAK;
     }
 
+	@Override
+	protected boolean tryPickup(PlayerEntity player)
+	{
+		return false;
+	}
 
 	@Override
 	public ItemStack asItemStack()
 	{
-		return new ItemStack(Items.MELON);
+		return new ItemStack(Items.MELON_SLICE.asItem());
 	}
 
 
@@ -198,5 +203,21 @@ public class MelonAmmoEntity extends PersistentProjectileEntity implements GeoEn
     public boolean shouldRender(double distance) {
 		return true;
     }
+
+	@SuppressWarnings("resource")
+	@Environment(EnvType.CLIENT)
+	private void spawnImpactParticles()
+	{
+		BlockPos loc = this.getBlockPos();
+		Random random = this.getWorld().random;
+		Vec3d center = VecHelper.getCenterOf(loc).add(0, 5 / 16f, 0);
+
+		for (int i = 0; i < 30; i++) {
+			Vec3d motion = VecHelper.offsetRandomly(new Vec3d(0, 0.25f, 0), random, .125f);
+			this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, this.asItemStack()),
+				center.x, center.y, center.z,
+				motion.x, motion.y, motion.z);
+		}
+	}
 
 }

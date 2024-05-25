@@ -1,0 +1,8 @@
+{
+	"parent": "createcontraptioncreatures:item/template_lens",
+  "textures": {
+		"0": "createcontraptioncreatures:item/channeller",
+		"1": "createcontraptioncreatures:item/teleport_lens",
+		"particle": "createcontraptioncreatures:item/channeller"
+	}
+}

@@ -16,6 +16,16 @@
     "item.createcontraptioncreatures.melon_lobber": "Melon Lobber",
     "entity.createcontraptioncreatures.thrown_melon": "Thrown Melon",
 
+    "item.createcontraptioncreatures.flamer": "Igniter",
+    "entity.createcontraptioncreatures.flame_blast": "Flame Blast",
+
+    "item.createcontraptioncreatures.channeller": "Channeller",
+
+    "entity.createcontraptioncreatures.tele_bullet": "Markers",
+    "item.createcontraptioncreatures.echo_lens": "Screaming Lens",
+    "item.createcontraptioncreatures.teleport_lens": "Ender Lens",
+    "item.createcontraptioncreatures.flame_lens": "Basic Lens",
+
     "_B": "//Neutral Automatons",
     "entity.createcontraptioncreatures.auto_driller": "Driller Automaton",
     "item.createcontraptioncreatures.auto_driller": "Driller Automaton Spawn Egg",

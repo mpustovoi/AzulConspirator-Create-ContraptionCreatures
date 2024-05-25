@@ -28,9 +28,9 @@ public class GearDummyEntity extends AbstractHostileCogBotEntity
 	public static DefaultAttributeContainer.Builder createCombatantGearDummyAttributes()
 	{
         return MobEntity.createMobAttributes()
-			.add(EntityAttributes.GENERIC_MAX_HEALTH, 35)
-			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-			.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3);
+			.add(EntityAttributes.GENERIC_MAX_HEALTH, 8)
+			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4f)
+			.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
     }
 
 	@Override

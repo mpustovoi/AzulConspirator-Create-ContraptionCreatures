@@ -42,5 +42,8 @@ public class CreateContraptionCreaturesClient implements ClientModInitializer
 		//Projectiles
 		EntityRendererRegistry.register(ModItem.SEED_BULLETS, (ctx) -> new SeedAmmoRenderer(ctx));
 		EntityRendererRegistry.register(ModItem.MELON_BULLETS, (ctx) -> new MelonAmmoRenderer(ctx));
+		EntityRendererRegistry.register(ModItem.FLAME_BLAST, (ctx) -> new EmptyRenderer(ctx));
+		EntityRendererRegistry.register(ModItem.ECHO_BLAST, (ctx) -> new EmptyRenderer(ctx));
+		EntityRendererRegistry.register(ModItem.TELE_BULLET, (ctx) -> new EmptyRenderer(ctx));
     }
 }

@@ -27,6 +27,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 
@@ -55,9 +57,6 @@ public class SeedAmmoEntity extends PersistentProjectileEntity implements GeoEnt
 	protected SeedAmmoEntity(EntityType<? extends SeedAmmoEntity> type, LivingEntity owner, World world) {
         this(type, owner.getX(), owner.getEyeY() - (double)0.1f, owner.getZ(), world);
         this.setOwner(owner);
-        if (owner instanceof PlayerEntity) {
-            this.pickupType = PickupPermission.ALLOWED;
-        }
     }
 	@Override
 	public void registerControllers(ControllerRegistrar controllers) {
@@ -107,8 +106,7 @@ public class SeedAmmoEntity extends PersistentProjectileEntity implements GeoEnt
 	}
 
 	public void initFromStack(ItemStack stack) {
-		if (stack.getItem() == Items.WHEAT_SEEDS) {
-		}
+		if (stack.getItem() == Items.WHEAT_SEEDS) {}
 	}
 
 	@Override
@@ -145,44 +143,78 @@ public class SeedAmmoEntity extends PersistentProjectileEntity implements GeoEnt
 	protected void onEntityHit(EntityHitResult entityHitResult) {
 		var entity = entityHitResult.getEntity();
 
+		// Check if the hit result is indeed an entity hit and the entity matches the hit result entity
 		if (entityHitResult.getType() != HitResult.Type.ENTITY || !((EntityHitResult) entityHitResult).getEntity().equals(entity))
-			if (!this.getWorld().isClient())
+		{
+			if (!this.getWorld().isClient()) {
+				// If it's not a valid entity hit or on the client side, remove the projectile
 				this.remove(RemovalReason.DISCARDED);
+			}
+			return;
+		}
 
-		var entity2 = this.getOwner();
+		var entity2 = this.getOwner();  // Get the entity that fired the projectile
 		DamageSource damageSource2;
 
-		if (entity2 == null)
-		{
+		// Determine the damage source based on the owner of the projectile
+		if (entity2 == null) {
+			// If there is no owner, the projectile itself is the damage source
 			damageSource2 = getDamageSources().arrow(this, this);
-		}
-		else
-		{
+		} else {
+			// If there is an owner, the owner is the damage source
 			damageSource2 = getDamageSources().arrow(this, entity2);
 
-            if (entity2 instanceof LivingEntity) {
-                ((LivingEntity)entity2).onAttacking(entity);
-            }
+			// If the owner is a LivingEntity, register the attack
+			if (entity2 instanceof LivingEntity) {
+				((LivingEntity) entity2).onAttacking(entity);
+			}
 		}
 
+		// Apply damage to the hit entity
 		if (entity.damage(damageSource2, bulletdamage))
 		{
 			if (entity instanceof LivingEntity)
 			{
 				var livingEntity = (LivingEntity) entity;
-				if (!this.getWorld().isClient && entity2 instanceof LivingEntity)
+
+				// Perform additional server-side checks if the owner is a LivingEntity
+				if (!this.getWorld().isClient() && entity2 instanceof LivingEntity)
 				{
-                    EnchantmentHelper.onUserDamaged(livingEntity, entity2);
-                    EnchantmentHelper.onTargetDamaged((LivingEntity)entity2, livingEntity);
-                }
-                this.onHit(livingEntity);
-                if (entity2 != null && livingEntity != entity2 && livingEntity instanceof PlayerEntity && entity2 instanceof ServerPlayerEntity && !this.isSilent())
-				{
-                    ((ServerPlayerEntity)entity2).networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.PROJECTILE_HIT_PLAYER, GameStateChangeS2CPacket.DEMO_OPEN_SCREEN));
-                }
+					LivingEntity target = (LivingEntity) entity;
+					Vec3d hitPos = entityHitResult.getPos();  // Get the position where the hit occurred
+
+					// Get the bounding box of the entity's head
+					Box headBox = getEntityHeadBoundingBox(target);
+
+					// Check if the hit position is within the head bounding box
+					boolean isHeadshot = headBox.contains(hitPos);
+
+					if (isHeadshot) {
+						// Apply additional damage for headshots
+						entity.damage(damageSource2, bulletdamage * 5); // Double damage for headshot
+					}
+					// Apply enchantment effects on damage
+					EnchantmentHelper.onUserDamaged(livingEntity, entity2);
+					EnchantmentHelper.onTargetDamaged((LivingEntity) entity2, livingEntity);
+				}
+				this.onHit(livingEntity);  // Perform additional hit logic
+				// Send hit notification to the player who fired the projectile, if applicable
+				if (entity2 != null && livingEntity != entity2 && livingEntity instanceof PlayerEntity && entity2 instanceof ServerPlayerEntity && !this.isSilent()) {
+					((ServerPlayerEntity) entity2).networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.PROJECTILE_HIT_PLAYER, GameStateChangeS2CPacket.DEMO_OPEN_SCREEN));
+				}
 			}
-		} else if (!this.getWorld().isClient())
+		}
+		else if (!this.getWorld().isClient())
+		{
+			// If the entity was not damaged and this is not on the client side, remove the projectile
 			this.remove(RemovalReason.DISCARDED);
+		}
+	}
+
+	@Override
+	protected boolean tryPickup(PlayerEntity player)
+	{
+		return false;
 	}
 
 	@Override
@@ -191,11 +223,30 @@ public class SeedAmmoEntity extends PersistentProjectileEntity implements GeoEnt
 		return new ItemStack(Items.WHEAT_SEEDS);
 	}
 
-
-
 	@Override
 	@Environment(EnvType.CLIENT)
     public boolean shouldRender(double distance) {
 		return true;
     }
+
+
+	// Utility method to get the head bounding box of an entity
+	private Box getEntityHeadBoundingBox(LivingEntity entity)
+	{
+		if (entity instanceof PlayerEntity) {
+			return new Box(
+				entity.getX() - 0.25, entity.getY() + entity.getEyeHeight(entity.getPose()) - 0.25,
+				entity.getZ() - 0.25, entity.getX() + 0.25, entity.getY() + entity.getEyeHeight(entity.getPose()) + 0.25,
+				entity.getZ() + 0.25
+			);
+		}
+		// Adjust the bounding box based on the entity's head height and width
+		double headHeight = entity.getHeight() * 0.15;
+		double headWidth = entity.getWidth() * 0.5;
+		return new Box(
+			entity.getX() - headWidth, entity.getY() + entity.getHeight() - headHeight,
+			entity.getZ() - headWidth, entity.getX() + headWidth, entity.getY() + entity.getHeight(),
+			entity.getZ() + headWidth
+		);
+	}
 }

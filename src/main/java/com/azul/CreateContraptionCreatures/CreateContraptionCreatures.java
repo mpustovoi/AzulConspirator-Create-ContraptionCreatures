@@ -54,5 +54,11 @@ public class CreateContraptionCreatures implements ModInitializer
                 ((ContraptionBaseGunItem) player.getMainHandStack().getItem()).reloadBullets(player, Hand.MAIN_HAND);
         });
 
+		ServerPlayNetworking.registerGlobalReceiver(ModItem.FIRE_MODE, (server, player, serverPlayNetworkHandler, inputPacket, packetSender) ->
+		{
+            if (player.getMainHandStack().getItem() instanceof ContraptionBaseGunItem)
+                ((ContraptionBaseGunItem) player.getMainHandStack().getItem()).SetFireMode(player, player.getMainHandStack());
+        });
+
 	}
 }
